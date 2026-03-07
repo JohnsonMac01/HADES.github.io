@@ -1,276 +1,309 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HADES Project</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    html {
-      scroll-behavior: smooth;
-    }
+<title>HADES Safety Monitoring System</title>
 
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      background: #0f172a;
-      color: #e2e8f0;
-    }
+<style>
 
-    header {
-      background: linear-gradient(135deg, #1e293b, #0ea5e9);
-      padding: 70px 20px;
-      text-align: center;
-    }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-    header h1 {
-      font-size: 3.2rem;
-      margin-bottom: 12px;
-      letter-spacing: 1px;
-    }
+html{
+scroll-behavior:smooth;
+}
 
-    header p {
-      font-size: 1.15rem;
-      color: #dbeafe;
-      max-width: 850px;
-      margin: 0 auto;
-    }
+body{
+font-family:Segoe UI,Arial,sans-serif;
+background:#0f172a;
+color:#e2e8f0;
+line-height:1.6;
+}
 
-    .hero-box {
-      margin: 25px auto 0;
-      padding: 22px;
-      max-width: 900px;
-      background: rgba(255, 255, 255, 0.10);
-      border-radius: 16px;
-    }
+/* HEADER */
 
-    nav {
-      background: #111827;
-      padding: 16px;
-      text-align: center;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+header{
+background:linear-gradient(135deg,#1e293b,#2563eb);
+padding:80px 20px;
+text-align:center;
+}
 
-    nav a {
-      color: #93c5fd;
-      text-decoration: none;
-      margin: 0 14px;
-      font-weight: bold;
-      display: inline-block;
-    }
+header h1{
+font-size:3.5rem;
+letter-spacing:2px;
+margin-bottom:10px;
+}
 
-    nav a:hover {
-      color: #ffffff;
-    }
+header p{
+font-size:1.1rem;
+color:#cbd5f5;
+max-width:850px;
+margin:auto;
+}
 
-    .container {
-      width: 92%;
-      max-width: 1150px;
-      margin: 40px auto;
-    }
+/* NAV */
 
-    .card {
-      background: #1e293b;
-      padding: 28px;
-      margin-bottom: 28px;
-      border-radius: 18px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-    }
+nav{
+background:#020617;
+padding:15px;
+text-align:center;
+position:sticky;
+top:0;
+border-bottom:1px solid rgba(255,255,255,0.08);
+}
 
-    .card h2 {
-      color: #38bdf8;
-      margin-bottom: 14px;
-      font-size: 1.7rem;
-    }
+nav a{
+color:#93c5fd;
+text-decoration:none;
+margin:0 15px;
+font-weight:600;
+}
 
-    .card p {
-      margin-bottom: 12px;
-      color: #dbeafe;
-    }
+nav a:hover{
+color:white;
+}
 
-    .team-list,
-    .components-list {
-      padding-left: 24px;
-      color: #dbeafe;
-    }
+/* MAIN CONTAINER */
 
-    .team-list li,
-    .components-list li {
-      margin-bottom: 8px;
-    }
+.container{
+width:90%;
+max-width:1100px;
+margin:40px auto;
+}
 
-    .image-wrapper {
-      margin-top: 20px;
-      text-align: center;
-    }
+/* CARDS */
 
-    .image-wrapper img {
-      width: 100%;
-      max-width: 900px;
-      border-radius: 14px;
-      background: #ffffff;
-      padding: 10px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.22);
-    }
+.card{
+background:#1e293b;
+padding:30px;
+margin-bottom:30px;
+border-radius:15px;
+box-shadow:0 6px 20px rgba(0,0,0,0.25);
+}
 
-    .caption {
-      margin-top: 10px;
-      font-size: 0.95rem;
-      color: #cbd5e1;
-    }
+.card h2{
+color:#38bdf8;
+margin-bottom:15px;
+}
 
-    footer {
-      text-align: center;
-      padding: 28px 20px;
-      background: #111827;
-      color: #94a3b8;
-      margin-top: 45px;
-    }
+.card p{
+margin-bottom:10px;
+}
 
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.4rem;
-      }
+/* LISTS */
 
-      nav a {
-        margin: 6px 10px;
-      }
+ul{
+padding-left:20px;
+}
 
-      .card {
-        padding: 22px;
-      }
-    }
-  </style>
+li{
+margin-bottom:6px;
+}
+
+/* IMAGE STYLING */
+
+.image-wrapper{
+text-align:center;
+margin-top:20px;
+}
+
+.image-wrapper img{
+width:100%;
+max-width:850px;
+border-radius:10px;
+background:white;
+padding:10px;
+box-shadow:0 5px 18px rgba(0,0,0,0.25);
+}
+
+.caption{
+font-size:0.9rem;
+color:#cbd5e1;
+margin-top:8px;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+padding:25px;
+background:#020617;
+color:#94a3b8;
+margin-top:40px;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+header h1{
+font-size:2.5rem;
+}
+
+}
+
+</style>
 </head>
+
 <body>
 
-  <header>
-    <h1>HADES</h1>
-    <p>EEC 172 Final Project Website</p>
-    <div class="hero-box">
-      <p>
-        HADES is an IoT-based household safety monitoring system designed to detect
-        potentially dangerous unattended heat sources by combining infrared temperature
-        sensing, mmWave human presence detection, local alarm hardware, and cloud-based
-        communication through AWS.
-      </p>
-    </div>
-  </header>
+<header>
+<h1>HADES</h1>
+<p>Embedded Safety Monitoring System for Detecting Unattended Heat Sources</p>
+</header>
 
-  <nav>
-    <a href="#about">About</a>
-    <a href="#team">Team</a>
-    <a href="#architecture">Architecture</a>
-    <a href="#state-machine">State Machine</a>
-    <a href="#components">Components</a>
-    <a href="#results">Goals</a>
-  </nav>
+<nav>
+<a href="#overview">Overview</a>
+<a href="#team">Team</a>
+<a href="#architecture">Architecture</a>
+<a href="#state">State Machine</a>
+<a href="#components">Components</a>
+<a href="#goals">Goals</a>
+</nav>
 
-  <div class="container">
+<div class="container">
 
-    <section id="about" class="card">
-      <h2>About the Project</h2>
-      <p>
-        HADES is a smart household safety monitoring system built around the CC3200 LaunchPad.
-        The purpose of the device is to detect unsafe situations where a strong heat source is
-        present while no person is nearby to monitor it.
-      </p>
-      <p>
-        To do this, the system reads temperature data from an IR sensor and presence information
-        from a mmWave radar module. Based on those readings, the controller decides whether the
-        situation is safe, whether a warning should be sent through AWS, or whether a local alarm
-        should be activated until the user acknowledges the event.
-      </p>
-    </section>
+<section id="overview" class="card">
 
-    <section id="team" class="card">
-      <h2>Team Members</h2>
-      <ul class="team-list">
-        <li>Ahmed Khan</li>
-        <li>Johnson Mac</li>
-      </ul>
-    </section>
+<h2>Project Overview</h2>
 
-    <section id="architecture" class="card">
-      <h2>System Architecture</h2>
-      <p>
-        The system architecture centers around the CC3200 board, which interfaces with multiple
-        peripherals and sensors. The IR sensor communicates over I2C, the mmWave radar communicates
-        over UART, and the Adafruit OLED display is controlled over SPI. A GPIO output is used to
-        control the relay and alarm path, while a GPIO input is connected to a user button for
-        acknowledgement or control actions.
-      </p>
-      <p>
-        Power is distributed through the system using 5V and 3.3V connections as needed for the
-        board and peripheral devices.
-      </p>
+<p>
+HADES is an embedded monitoring system designed to detect potentially dangerous
+situations where a strong heat source remains active while no person is present
+to monitor it.
+</p>
 
-      <div class="image-wrapper">
-        <img src="images/SystemArc.png" alt="System Architecture Diagram">
-        <div class="caption">Figure 1. System architecture showing the CC3200 board, sensors, display, alarm, relay, and power interfaces.</div>
-      </div>
-    </section>
+<p>
+The system combines an infrared temperature sensor with a mmWave human presence
+sensor. By analyzing both heat and occupancy information, the system determines
+whether a potentially hazardous condition exists.
+</p>
 
-    <section id="state-machine" class="card">
-      <h2>System State Machine</h2>
-      <p>
-        The HADES controller operates using a state-based workflow. After initialization, the
-        system attempts an AWS handshake and then continuously polls for presence and heat
-        conditions. If heat is detected while no human presence is found, a timer begins.
-      </p>
-      <p>
-        Once the unattended heat condition persists long enough, the system attempts to notify
-        the user through AWS. If acknowledgement is not received within the allowed time, a local
-        alarm is activated until the button is pressed to acknowledge the warning.
-      </p>
+<p>
+If heat is detected without nearby human presence for a sustained period of time,
+the controller can trigger notifications and activate local safety mechanisms.
+</p>
 
-      <div class="image-wrapper">
-        <img src="images/BlockDiagram.png" alt="System State Machine Diagram">
-        <div class="caption">Figure 2. High-level state machine for initialization, sensing, cloud notification, and alarm handling.</div>
-      </div>
-    </section>
+</section>
 
-    <section id="components" class="card">
-      <h2>Main Components</h2>
-      <ul class="components-list">
-        <li>CC3200 LaunchPad</li>
-        <li>IR Temperature Sensor</li>
-        <li>mmWave Radar Presence Sensor</li>
-        <li>Adafruit OLED Display</li>
-        <li>Relay Module</li>
-        <li>Alarm Output</li>
-        <li>User Push Button</li>
-        <li>AWS Cloud Communication</li>
-      </ul>
-    </section>
 
-    <section id="results" class="card">
-      <h2>Project Goals</h2>
-      <p>
-        The primary goal of HADES is to improve home safety by detecting hazardous unattended
-        heat sources before they become more serious problems. By combining heat sensing with
-        occupancy awareness, the system can reduce false alarms while still reacting quickly to
-        potentially dangerous situations.
-      </p>
-      <p>
-        This project demonstrates embedded system integration across sensing, communication,
-        state-machine control, user notification, and local hardware response.
-      </p>
-    </section>
+<section id="team" class="card">
 
-  </div>
+<h2>Team Members</h2>
 
-  <footer>
-    <p>HADES Project | EEC 172 Final Project Website</p>
-  </footer>
+<ul>
+<li>Ahmed Khan</li>
+<li>Johnson Mac</li>
+</ul>
+
+</section>
+
+
+<section id="architecture" class="card">
+
+<h2>System Architecture</h2>
+
+<p>
+The HADES system is centered around the CC3200 LaunchPad microcontroller which
+serves as the main processing unit. The controller interfaces with sensors,
+display hardware, alarm systems, and cloud communication services.
+</p>
+
+<p>
+Sensors communicate through I2C and UART interfaces while the OLED display
+uses SPI. GPIO lines control the relay and alarm hardware, and a button input
+allows user acknowledgement or manual interaction with the system.
+</p>
+
+<div class="image-wrapper">
+<img src="images/SystemArc.png" alt="System Architecture Diagram">
+<div class="caption">
+Figure 1: Hardware architecture showing sensors, CC3200 controller,
+display interface, relay, and alarm path.
+</div>
+</div>
+
+</section>
+
+
+<section id="state" class="card">
+
+<h2>System State Machine</h2>
+
+<p>
+The HADES system operates using a structured state-machine workflow.
+After initialization, the controller verifies network connectivity
+and begins continuously monitoring temperature and presence conditions.
+</p>
+
+<p>
+If heat is detected while no human presence is observed, a timer begins.
+If the condition persists beyond a threshold period, the system escalates
+to notification and alarm states until the situation is acknowledged.
+</p>
+
+<div class="image-wrapper">
+<img src="images/BlockDiagram.png" alt="System State Machine Diagram">
+<div class="caption">
+Figure 2: State machine describing initialization, monitoring,
+notification, and alarm acknowledgement states.
+</div>
+</div>
+
+</section>
+
+
+<section id="components" class="card">
+
+<h2>Major Components</h2>
+
+<ul>
+
+<li>CC3200 LaunchPad Microcontroller</li>
+<li>IR Temperature Sensor</li>
+<li>mmWave Human Presence Radar</li>
+<li>Adafruit OLED Display</li>
+<li>Relay Control Module</li>
+<li>Alarm Output Device</li>
+<li>User Push Button</li>
+<li>AWS Communication Interface</li>
+
+</ul>
+
+</section>
+
+
+<section id="goals" class="card">
+
+<h2>Design Goals</h2>
+
+<p>
+The goal of this project is to develop an embedded safety system capable
+of detecting unattended heat sources before they become hazardous.
+</p>
+
+<p>
+By combining environmental sensing, presence detection, and cloud
+communication, HADES demonstrates a complete IoT monitoring pipeline
+including sensing, decision-making, notification, and local response.
+</p>
+
+</section>
+
+</div>
+
+
+<footer>
+
+<p>HADES Project | EEC 172 Final Project Website</p>
+
+</footer>
 
 </body>
 </html>
