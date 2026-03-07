@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>HADES Safety Monitoring System</title>
 
 <style>
@@ -20,7 +19,7 @@ scroll-behavior:smooth;
 }
 
 body{
-font-family:Segoe UI,Arial,sans-serif;
+font-family:"Segoe UI",Arial,sans-serif;
 background:#0f172a;
 color:#e2e8f0;
 line-height:1.6;
@@ -40,11 +39,16 @@ letter-spacing:2px;
 margin-bottom:10px;
 }
 
-header p{
-font-size:1.1rem;
+.subtitle{
+font-size:1.15rem;
 color:#cbd5f5;
-max-width:850px;
-margin:auto;
+margin-bottom:15px;
+}
+
+.team{
+font-size:1rem;
+color:#e2e8f0;
+opacity:0.9;
 }
 
 /* NAV */
@@ -55,6 +59,7 @@ padding:15px;
 text-align:center;
 position:sticky;
 top:0;
+z-index:1000;
 border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
@@ -77,7 +82,7 @@ max-width:1100px;
 margin:40px auto;
 }
 
-/* CARDS */
+/* CARD SECTIONS */
 
 .card{
 background:#1e293b;
@@ -85,18 +90,20 @@ padding:30px;
 margin-bottom:30px;
 border-radius:15px;
 box-shadow:0 6px 20px rgba(0,0,0,0.25);
+scroll-margin-top:90px;
 }
 
 .card h2{
 color:#38bdf8;
 margin-bottom:15px;
+font-size:1.8rem;
 }
 
 .card p{
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
-/* LISTS */
+/* LIST */
 
 ul{
 padding-left:20px;
@@ -104,28 +111,6 @@ padding-left:20px;
 
 li{
 margin-bottom:6px;
-}
-
-/* IMAGE STYLING */
-
-.image-wrapper{
-text-align:center;
-margin-top:20px;
-}
-
-.image-wrapper img{
-width:100%;
-max-width:850px;
-border-radius:10px;
-background:white;
-padding:10px;
-box-shadow:0 5px 18px rgba(0,0,0,0.25);
-}
-
-.caption{
-font-size:0.9rem;
-color:#cbd5e1;
-margin-top:8px;
 }
 
 /* FOOTER */
@@ -146,6 +131,14 @@ header h1{
 font-size:2.5rem;
 }
 
+nav a{
+margin:6px 10px;
+}
+
+.card{
+padding:24px;
+}
+
 }
 
 </style>
@@ -154,13 +147,21 @@ font-size:2.5rem;
 <body>
 
 <header>
+
 <h1>HADES</h1>
-<p>Embedded Safety Monitoring System for Detecting Unattended Heat Sources</p>
+
+<p class="subtitle">
+Embedded Safety Monitoring System for Detecting Unattended Heat Sources
+</p>
+
+<p class="team">
+Ahmed Khan • Johnson Mac
+</p>
+
 </header>
 
 <nav>
 <a href="#overview">Overview</a>
-<a href="#team">Team</a>
 <a href="#architecture">Architecture</a>
 <a href="#state">State Machine</a>
 <a href="#components">Components</a>
@@ -175,32 +176,20 @@ font-size:2.5rem;
 
 <p>
 HADES is an embedded monitoring system designed to detect potentially dangerous
-situations where a strong heat source remains active while no person is present
-to monitor it.
+situations where a heat source remains active while no person is present
+to supervise it.
 </p>
 
 <p>
-The system combines an infrared temperature sensor with a mmWave human presence
-sensor. By analyzing both heat and occupancy information, the system determines
-whether a potentially hazardous condition exists.
+The system combines infrared temperature sensing with mmWave human presence
+detection to determine whether heat is being actively monitored by a user.
 </p>
 
 <p>
-If heat is detected without nearby human presence for a sustained period of time,
-the controller can trigger notifications and activate local safety mechanisms.
+If a strong heat source is detected without nearby human presence for a sustained
+period of time, the controller can escalate the situation by sending notifications
+and activating a local alarm until the condition is acknowledged.
 </p>
-
-</section>
-
-
-<section id="team" class="card">
-
-<h2>Team Members</h2>
-
-<ul>
-<li>Ahmed Khan</li>
-<li>Johnson Mac</li>
-</ul>
 
 </section>
 
@@ -211,23 +200,19 @@ the controller can trigger notifications and activate local safety mechanisms.
 
 <p>
 The HADES system is centered around the CC3200 LaunchPad microcontroller which
-serves as the main processing unit. The controller interfaces with sensors,
-display hardware, alarm systems, and cloud communication services.
+acts as the primary control unit for sensing, processing, and device response.
 </p>
 
 <p>
-Sensors communicate through I2C and UART interfaces while the OLED display
-uses SPI. GPIO lines control the relay and alarm hardware, and a button input
-allows user acknowledgement or manual interaction with the system.
+Sensors communicate with the controller using I2C and UART interfaces while the
+OLED display is driven through SPI communication. GPIO connections are used
+for alarm control and user button input.
 </p>
 
-<div class="image-wrapper">
-<img src="images/SystemArc.png" alt="System Architecture Diagram">
-<div class="caption">
-Figure 1: Hardware architecture showing sensors, CC3200 controller,
-display interface, relay, and alarm path.
-</div>
-</div>
+<p>
+This architecture enables the controller to integrate environmental sensing,
+user interaction, and external communication into a single coordinated system.
+</p>
 
 </section>
 
@@ -237,24 +222,22 @@ display interface, relay, and alarm path.
 <h2>System State Machine</h2>
 
 <p>
-The HADES system operates using a structured state-machine workflow.
-After initialization, the controller verifies network connectivity
-and begins continuously monitoring temperature and presence conditions.
+The HADES controller operates using a structured state-machine workflow.
+After initialization, the system verifies connectivity and begins monitoring
+temperature and presence conditions.
 </p>
 
 <p>
-If heat is detected while no human presence is observed, a timer begins.
-If the condition persists beyond a threshold period, the system escalates
-to notification and alarm states until the situation is acknowledged.
+If heat is detected while no human presence is reported, the controller begins
+tracking elapsed time for the condition. If the situation persists beyond a
+threshold, the system escalates by sending notifications and eventually
+activating a local alarm.
 </p>
 
-<div class="image-wrapper">
-<img src="images/BlockDiagram.png" alt="System State Machine Diagram">
-<div class="caption">
-Figure 2: State machine describing initialization, monitoring,
-notification, and alarm acknowledgement states.
-</div>
-</div>
+<p>
+The alarm remains active until the condition is acknowledged through either
+user interaction or system verification.
+</p>
 
 </section>
 
@@ -266,13 +249,13 @@ notification, and alarm acknowledgement states.
 <ul>
 
 <li>CC3200 LaunchPad Microcontroller</li>
-<li>IR Temperature Sensor</li>
+<li>Infrared Temperature Sensor</li>
 <li>mmWave Human Presence Radar</li>
 <li>Adafruit OLED Display</li>
 <li>Relay Control Module</li>
 <li>Alarm Output Device</li>
 <li>User Push Button</li>
-<li>AWS Communication Interface</li>
+<li>AWS Cloud Communication Interface</li>
 
 </ul>
 
@@ -289,9 +272,9 @@ of detecting unattended heat sources before they become hazardous.
 </p>
 
 <p>
-By combining environmental sensing, presence detection, and cloud
-communication, HADES demonstrates a complete IoT monitoring pipeline
-including sensing, decision-making, notification, and local response.
+By combining environmental sensing, presence detection, and cloud-based
+communication, HADES demonstrates a complete IoT monitoring system including
+sensing, decision-making, notification, and local hardware response.
 </p>
 
 </section>
