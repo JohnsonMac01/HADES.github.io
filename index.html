@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HADES Project</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e293b, #0ea5e9);
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #dbeafe;
+    }
+
+    nav {
+      background: #111827;
+      padding: 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+    }
+
+    nav a {
+      color: #93c5fd;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: white;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 40px auto;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    }
+
+    .card h2 {
+      color: #38bdf8;
+      margin-bottom: 15px;
+    }
+
+    .team-list, .components-list {
+      padding-left: 20px;
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 15px;
+      background: #0ea5e9;
+      color: white;
+      padding: 12px 18px;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+
+    .button:hover {
+      background: #0284c7;
+    }
+
+    .hero-box {
+      margin-top: 20px;
+      padding: 20px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: #111827;
+      color: #94a3b8;
+      margin-top: 40px;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>HADES</h1>
+    <p>EEC 172 Final Project Website</p>
+    <div class="hero-box">
+      <p>
+        A smart IoT safety monitoring system that detects unattended heat sources
+        using an infrared temperature sensor and human presence radar.
+      </p>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#about">About</a>
+    <a href="#team">Team</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#components">Components</a>
+    <a href="#results">Results</a>
+  </nav>
+
+  <div class="container">
+
+    <section id="about" class="card">
+      <h2>About the Project</h2>
+      <p>
+        HADES is an IoT-based household safety monitoring system designed to reduce
+        fire hazards caused by unattended heat sources. The system combines an
+        MLX90614 non-contact infrared temperature sensor with a human presence
+        sensor to determine when a dangerous condition may exist.
+      </p>
+      <p>
+        If a significant heat source is detected while no human presence is sensed
+        for a period of time, the device can alert the user through a cloud-based
+        notification system.
+      </p>
+    </section>
+
+    <section id="team" class="card">
+      <h2>Team Members</h2>
+      <ul class="team-list">
+        <li>Ahmed Khan</li>
+        <li>Johnson Mac</li>
+      </ul>
+    </section>
+
+    <section id="architecture" class="card">
+      <h2>System Architecture</h2>
+      <p>
+        The system uses a CC3200 LaunchPad as the main controller. Sensor data is
+        collected and processed locally, displayed on an OLED screen, and sent to
+        the cloud when an alert condition is detected.
+      </p>
+      <p>
+        Breadboard → CC3200 LaunchPad → Sensors (Temperature + Presence) →
+        OLED Display + AWS IoT Notification
+      </p>
+      <!-- Add your architecture image below later -->
+      <!-- <img src="images/architecture.png" alt="System architecture diagram"> -->
+    </section>
+
+    <section id="components" class="card">
+      <h2>Main Components</h2>
+      <ul class="components-list">
+        <li>CC3200 LaunchPad</li>
+        <li>MLX90614 IR Temperature Sensor</li>
+        <li>Human Presence / Radar Sensor</li>
+        <li>OLED Display</li>
+        <li>AWS IoT Cloud Services</li>
+      </ul>
+    </section>
+
+    <section id="results" class="card">
+      <h2>Project Goals and Results</h2>
+      <p>
+        The goal of this prototype is to detect potentially dangerous unattended
+        heat sources and provide a real-time warning to the user. By combining
+        environmental sensing with presence detection, the system improves
+        household awareness and safety.
+      </p>
+      <a class="button" href="https://github.com/JohnsonMac01/HADES.github.io" target="_blank">
+        View GitHub Repository
+      </a>
+    </section>
+
+  </div>
+
+  <footer>
+    <p>HADES Project | EEC 172 | GitHub Pages Website</p>
+  </footer>
+
+</body>
+</html>
