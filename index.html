@@ -20,41 +20,39 @@ scroll-behavior:smooth;
 
 body{
 font-family:"Segoe UI",Arial,sans-serif;
-background:#0f172a;
-color:#e2e8f0;
+background:#140909;
+color:#f8eaea;
 line-height:1.6;
 }
 
-/* HEADER */
-
 header{
-background:linear-gradient(135deg,#1e293b,#2563eb);
+background:linear-gradient(135deg,#2b0d0d,#7f1d1d,#dc2626);
 padding:80px 20px;
 text-align:center;
+box-shadow:0 4px 20px rgba(0,0,0,0.35);
 }
 
 header h1{
 font-size:3.5rem;
 letter-spacing:2px;
 margin-bottom:10px;
+color:#fff5f5;
 }
 
 .subtitle{
 font-size:1.15rem;
-color:#cbd5f5;
+color:#ffd6d6;
 margin-bottom:15px;
 }
 
 .team{
 font-size:1rem;
-color:#e2e8f0;
-opacity:0.9;
+color:#ffe4e4;
+opacity:0.95;
 }
 
-/* NAV */
-
 nav{
-background:#020617;
+background:#220909;
 padding:15px;
 text-align:center;
 position:sticky;
@@ -64,17 +62,16 @@ border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
 nav a{
-color:#93c5fd;
+color:#ffb4b4;
 text-decoration:none;
 margin:0 15px;
 font-weight:600;
+transition:0.2s ease;
 }
 
 nav a:hover{
-color:white;
+color:#ffffff;
 }
-
-/* MAIN CONTAINER */
 
 .container{
 width:90%;
@@ -82,28 +79,26 @@ max-width:1100px;
 margin:40px auto;
 }
 
-/* CARD SECTIONS */
-
 .card{
-background:#1e293b;
+background:#2a1111;
 padding:30px;
 margin-bottom:30px;
 border-radius:15px;
-box-shadow:0 6px 20px rgba(0,0,0,0.25);
+box-shadow:0 6px 20px rgba(0,0,0,0.3);
 scroll-margin-top:90px;
+border:1px solid rgba(255,255,255,0.05);
 }
 
 .card h2{
-color:#38bdf8;
+color:#ff6b6b;
 margin-bottom:15px;
 font-size:1.8rem;
 }
 
 .card p{
 margin-bottom:12px;
+color:#ffe7e7;
 }
-
-/* LIST */
 
 ul{
 padding-left:20px;
@@ -111,19 +106,75 @@ padding-left:20px;
 
 li{
 margin-bottom:6px;
+color:#ffe7e7;
 }
 
-/* FOOTER */
+.timeline{
+position:relative;
+margin-top:20px;
+padding-left:25px;
+border-left:3px solid #ff6b6b;
+}
+
+.timeline-item{
+margin-bottom:25px;
+position:relative;
+padding-left:20px;
+}
+
+.timeline-item::before{
+content:"";
+position:absolute;
+left:-34px;
+top:5px;
+width:14px;
+height:14px;
+background:#ff6b6b;
+border-radius:50%;
+border:3px solid #2a1111;
+}
+
+.timeline-item h3{
+color:#ffd1d1;
+margin-bottom:6px;
+font-size:1.1rem;
+}
+
+.timeline-item p{
+margin-bottom:0;
+}
+
+.video-box{
+margin-top:18px;
+background:#3a1717;
+padding:20px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,0.06);
+}
+
+.video-box a{
+color:#ff9b9b;
+font-weight:600;
+text-decoration:none;
+}
+
+.video-box a:hover{
+color:#ffffff;
+}
+
+.video-note{
+margin-top:10px;
+font-size:0.95rem;
+color:#f3c7c7;
+}
 
 footer{
 text-align:center;
 padding:25px;
-background:#020617;
-color:#94a3b8;
+background:#220909;
+color:#f0b4b4;
 margin-top:40px;
 }
-
-/* MOBILE */
 
 @media(max-width:768px){
 
@@ -133,6 +184,7 @@ font-size:2.5rem;
 
 nav a{
 margin:6px 10px;
+display:inline-block;
 }
 
 .card{
@@ -165,6 +217,8 @@ Ahmed Khan • Johnson Mac
 <a href="#architecture">Architecture</a>
 <a href="#state">State Machine</a>
 <a href="#components">Components</a>
+<a href="#timeline">Timeline</a>
+<a href="#video">Video</a>
 <a href="#goals">Goals</a>
 </nav>
 
@@ -193,7 +247,6 @@ and activating a local alarm until the condition is acknowledged.
 
 </section>
 
-
 <section id="architecture" class="card">
 
 <h2>System Architecture</h2>
@@ -215,7 +268,6 @@ user interaction, and external communication into a single coordinated system.
 </p>
 
 </section>
-
 
 <section id="state" class="card">
 
@@ -241,13 +293,11 @@ user interaction or system verification.
 
 </section>
 
-
 <section id="components" class="card">
 
 <h2>Major Components</h2>
 
 <ul>
-
 <li>CC3200 LaunchPad Microcontroller</li>
 <li>Infrared Temperature Sensor</li>
 <li>mmWave Human Presence Radar</li>
@@ -256,11 +306,94 @@ user interaction or system verification.
 <li>Alarm Output Device</li>
 <li>User Push Button</li>
 <li>AWS Cloud Communication Interface</li>
-
 </ul>
 
 </section>
 
+<section id="timeline" class="card">
+
+<h2>Project Timeline</h2>
+
+<p>
+This timeline summarizes the major phases of the HADES project from early planning
+to system integration and final testing.
+</p>
+
+<div class="timeline">
+
+  <div class="timeline-item">
+    <h3>Phase 1 — Project Planning</h3>
+    <p>
+      Defined the project goal, selected the safety monitoring concept,
+      and identified the hardware and cloud components needed for the system.
+    </p>
+  </div>
+
+  <div class="timeline-item">
+    <h3>Phase 2 — Sensor Integration</h3>
+    <p>
+      Integrated the infrared temperature sensor and mmWave radar module with the CC3200
+      and verified communication through the required interfaces.
+    </p>
+  </div>
+
+  <div class="timeline-item">
+    <h3>Phase 3 — Display and User Interaction</h3>
+    <p>
+      Implemented the OLED display interface and user interaction features,
+      allowing the system to show status information and accept manual user input.
+    </p>
+  </div>
+
+  <div class="timeline-item">
+    <h3>Phase 4 — Embedded Logic Development (Currently Finishing)</h3>
+    <p>
+      Implementing the system state-machine workflow, condition tracking logic,
+      and safety decision process used to determine when notifications and alarms
+      should be triggered.
+    </p>
+  </div>
+
+  <div class="timeline-item">
+    <h3>Phase 5 — Cloud Communication</h3>
+    <p>
+      Connecting the system to AWS services for notification handling,
+      remote monitoring, and cloud communication.
+    </p>
+  </div>
+
+  <div class="timeline-item">
+    <h3>Phase 6 — Testing and Refinement</h3>
+    <p>
+      Performing full system testing, refining thresholds and system behavior,
+      and preparing the project for the final demonstration.
+    </p>
+  </div>
+
+</div>
+
+</section>
+  
+<section id="video" class="card">
+
+<h2>Project Video</h2>
+
+<p>
+This section can be used for your final demo video, walkthrough, or system showcase.
+Once your video is uploaded, replace the placeholder link below with the actual URL.
+</p>
+
+<div class="video-box">
+  <p>
+    Demo Video:
+    <a href="Video_LINK" target="_blank">Watch the HADES project video</a>
+  </p>
+  <p class="video-note">
+    You can link to YouTube, Google Drive, or another hosted video page.
+  </p>
+</div>
+
+</section>
 
 <section id="goals" class="card">
 
@@ -281,11 +414,8 @@ sensing, decision-making, notification, and local hardware response.
 
 </div>
 
-
 <footer>
-
 <p>HADES Project | EEC 172 Final Project Website</p>
-
 </footer>
 
 </body>
