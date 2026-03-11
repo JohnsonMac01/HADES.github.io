@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HADES Safety Monitoring System</title>
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -33,8 +31,9 @@ position:fixed;
 top:0;
 left:0;
 width:100%;
-height:8px;
-background:rgba(255,255,255,0.08);
+height:10px;
+background:#160707;
+border-bottom:1px solid rgba(255,255,255,0.08);
 z-index:2000;
 }
 
@@ -44,9 +43,8 @@ width:0%;
 background:linear-gradient(90deg,#60a5fa,#f97316,#ef4444);
 box-shadow:
 0 0 8px rgba(249,115,22,0.8),
-0 0 16px rgba(239,68,68,0.7),
-0 0 24px rgba(255,120,0,0.7);
-transition:width 0.1s linear;
+0 0 16px rgba(239,68,68,0.7);
+transition:width 0.08s linear;
 }
 
 /* HEADER */
@@ -54,7 +52,7 @@ transition:width 0.1s linear;
 header{
 background:linear-gradient(135deg,#1e293b,#2563eb,#dc2626);
 background-size:200% 200%;
-padding:95px 20px 80px;
+padding:105px 20px 80px;
 text-align:center;
 box-shadow:0 6px 25px rgba(0,0,0,0.35);
 position:relative;
@@ -79,7 +77,7 @@ pointer-events:none;
 
 header h1{
 position:relative;
-font-size:3.5rem;
+font-size:3.7rem;
 letter-spacing:2px;
 margin-bottom:10px;
 color:#fff5f5;
@@ -112,7 +110,7 @@ background:#220909;
 padding:15px;
 text-align:center;
 position:sticky;
-top:8px;
+top:10px;
 z-index:1500;
 border-bottom:1px solid rgba(255,255,255,0.08);
 box-shadow:0 3px 12px rgba(0,0,0,0.18);
@@ -124,6 +122,7 @@ text-decoration:none;
 margin:0 15px;
 font-weight:600;
 transition:0.25s ease;
+display:inline-block;
 }
 
 nav a:hover{
@@ -131,11 +130,18 @@ color:#ffffff;
 text-shadow:0 0 8px rgba(255,120,80,0.55);
 }
 
+nav a.active{
+color:#ffffff;
+text-shadow:
+0 0 8px rgba(255,120,80,0.65),
+0 0 16px rgba(255,69,0,0.35);
+}
+
 /* MAIN CONTAINER */
 
 .container{
 width:90%;
-max-width:1100px;
+max-width:1150px;
 margin:40px auto;
 }
 
@@ -145,15 +151,37 @@ margin:40px auto;
 background:#2a1111;
 padding:30px;
 margin-bottom:30px;
-border-radius:15px;
+border-radius:18px;
 box-shadow:0 6px 20px rgba(0,0,0,0.3);
-scroll-margin-top:95px;
+scroll-margin-top:100px;
 border:1px solid rgba(255,255,255,0.05);
-transition:transform 0.2s ease, box-shadow 0.2s ease;
+transition:
+transform 0.4s ease,
+box-shadow 0.3s ease,
+opacity 0.5s ease,
+filter 0.5s ease;
+opacity:0;
+transform:translateY(28px);
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.card.burned{
+opacity:0.35;
+filter:blur(2px) saturate(0.8);
+transform:scale(0.985);
+}
+
+.card.current{
+opacity:1;
+filter:none;
+transform:translateY(0) scale(1);
 }
 
 .card:hover{
-transform:translateY(-3px);
 box-shadow:0 10px 28px rgba(0,0,0,0.35);
 }
 
@@ -168,82 +196,147 @@ margin-bottom:12px;
 color:#ffe7e7;
 }
 
-/* LIST */
-
 ul{
 padding-left:20px;
 }
 
 li{
-margin-bottom:6px;
+margin-bottom:7px;
 color:#ffe7e7;
 }
 
-/* TIMELINE */
+/* TIMELINE GRID */
 
-.timeline{
-position:relative;
+.timeline-grid{
+display:grid;
+grid-template-columns:repeat(2, minmax(0, 1fr));
+gap:18px;
 margin-top:20px;
-padding-left:25px;
-border-left:3px solid #ff6b6b;
 }
 
-.timeline-item{
-margin-bottom:25px;
+.timeline-card{
+background:linear-gradient(180deg,#381515,#2e1010);
+border:1px solid rgba(255,255,255,0.06);
+border-radius:16px;
+padding:20px;
+box-shadow:0 6px 18px rgba(0,0,0,0.24);
 position:relative;
-padding-left:20px;
+overflow:hidden;
+transition:transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+cursor:pointer;
 }
 
-.timeline-item::before{
+.timeline-card::before{
 content:"";
 position:absolute;
-left:-34px;
-top:5px;
-width:14px;
-height:14px;
-background:#ff6b6b;
-border-radius:50%;
-border:3px solid #2a1111;
-box-shadow:0 0 10px rgba(255,100,100,0.6);
+top:0;
+left:0;
+width:100%;
+height:4px;
+background:linear-gradient(90deg,#ff7b7b,#ff5a36,#ffb347);
 }
 
-.timeline-item h3{
-color:#ffd1d1;
-margin-bottom:6px;
-font-size:1.1rem;
+.timeline-card:hover{
+transform:translateY(-6px) scale(1.01);
+box-shadow:0 12px 24px rgba(0,0,0,0.3), 0 0 18px rgba(255,90,54,0.15);
+border-color:rgba(255,120,120,0.28);
 }
 
-.timeline-item p{
+.phase-tag{
+display:inline-block;
+font-size:0.85rem;
+font-weight:700;
+letter-spacing:0.4px;
+text-transform:uppercase;
+color:#ffd9d9;
+background:rgba(255,255,255,0.06);
+padding:6px 10px;
+border-radius:999px;
+margin-bottom:12px;
+}
+
+.timeline-card h3{
+color:#fff0f0;
+font-size:1.2rem;
+margin-bottom:10px;
+line-height:1.35;
+}
+
+.timeline-card p{
 margin-bottom:0;
+color:#ffe3e3;
 }
 
-/* VIDEO BOX */
+.timeline-card.current{
+border:1px solid rgba(255,120,120,0.35);
+box-shadow:
+0 8px 22px rgba(0,0,0,0.28),
+0 0 16px rgba(255,90,54,0.18);
+}
+
+.timeline-card.current .phase-tag{
+background:rgba(255,90,54,0.18);
+color:#fff1f1;
+}
+
+/* VIDEO */
 
 .video-box{
 margin-top:18px;
 background:#3a1717;
 padding:20px;
-border-radius:12px;
+border-radius:16px;
 border:1px solid rgba(255,255,255,0.06);
 }
 
-.video-box a{
-color:#ff9b9b;
-font-weight:600;
-text-decoration:none;
+.video-frame{
+position:relative;
+width:100%;
+padding-top:56.25%;
+border-radius:14px;
+overflow:hidden;
+background:#140707;
+margin-top:14px;
 }
 
-.video-box a:hover{
-color:#ffffff;
+.video-frame iframe{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+border:0;
 }
 
-.video-note{
-margin-top:10px;
-font-size:0.95rem;
-color:#f3c7c7;
+/* BACK TO TOP */
+
+#topButton{
+position:fixed;
+right:24px;
+bottom:24px;
+width:52px;
+height:52px;
+border:none;
+border-radius:50%;
+background:linear-gradient(135deg,#ff6b6b,#ff5a36);
+color:white;
+font-size:1.35rem;
+cursor:pointer;
+box-shadow:
+0 8px 18px rgba(0,0,0,0.28),
+0 0 14px rgba(255,90,54,0.25);
+opacity:0;
+visibility:hidden;
+transform:translateY(10px);
+transition:opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+z-index:1800;
 }
 
-/* FOOTER */
+#topButton.show{
+opacity:1;
+visibility:visible;
+transform:translateY(0);
+}
 
 footer{
 text-align:center;
@@ -256,15 +349,9 @@ margin-top:40px;
 /* ANIMATIONS */
 
 @keyframes headerShift{
-0%{
-background-position:0% 50%;
-}
-50%{
-background-position:100% 50%;
-}
-100%{
-background-position:0% 50%;
-}
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
 }
 
 @keyframes fireGlow{
@@ -280,25 +367,25 @@ filter:blur(14px);
 }
 }
 
-/* MOBILE */
+@media(max-width:900px){
+.timeline-grid{
+grid-template-columns:1fr;
+}
+}
 
 @media(max-width:768px){
-
 header h1{
-font-size:2.5rem;
+font-size:2.7rem;
 }
 
 nav a{
 margin:6px 10px;
-display:inline-block;
 }
 
 .card{
 padding:24px;
 }
-
 }
-
 </style>
 </head>
 
@@ -309,223 +396,171 @@ padding:24px;
 </div>
 
 <header>
-
-<h1>HADES</h1>
-
-<p class="subtitle">
-Embedded Safety Monitoring System for Detecting Unattended Heat Sources
-</p>
-
-<p class="team">
-Ahmed Khan • Johnson Mac
-</p>
-
+  <h1>HADES</h1>
+  <p class="subtitle">
+    Embedded Safety Monitoring System for Detecting Unattended Heat Sources
+  </p>
+  <p class="team">
+    Ahmed Khan • Johnson Mac
+  </p>
 </header>
 
 <nav>
-<a href="#overview">Overview</a>
-<a href="#architecture">Architecture</a>
-<a href="#state">State Machine</a>
-<a href="#components">Components</a>
-<a href="#timeline">Timeline</a>
-<a href="#video">Video</a>
-<a href="#goals">Goals</a>
+  <a href="#overview">Overview</a>
+  <a href="#architecture">Architecture</a>
+  <a href="#state">State Machine</a>
+  <a href="#components">Components</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#video">Video</a>
+  <a href="#goals">Goals</a>
 </nav>
 
 <div class="container">
 
-<section id="overview" class="card">
-
-<h2>Project Overview</h2>
-
-<p>
-HADES is an embedded monitoring system designed to detect potentially dangerous
-situations where a heat source remains active while no person is present
-to supervise it.
-</p>
-
-<p>
-The system combines infrared temperature sensing with mmWave human presence
-detection to determine whether heat is being actively monitored by a user.
-</p>
-
-<p>
-If a strong heat source is detected without nearby human presence for a sustained
-period of time, the controller can escalate the situation by sending notifications
-and activating a local alarm until the condition is acknowledged.
-</p>
-
-</section>
-
-<section id="architecture" class="card">
-
-<h2>System Architecture</h2>
-
-<p>
-The HADES system is centered around the CC3200 LaunchPad microcontroller which
-acts as the primary control unit for sensing, processing, and device response.
-</p>
-
-<p>
-Sensors communicate with the controller using I2C and UART interfaces while the
-OLED display is driven through SPI communication. GPIO connections are used
-for alarm control and user button input.
-</p>
-
-<p>
-This architecture enables the controller to integrate environmental sensing,
-user interaction, and external communication into a single coordinated system.
-</p>
-
-</section>
-
-<section id="state" class="card">
-
-<h2>System State Machine</h2>
-
-<p>
-The HADES controller operates using a structured state-machine workflow.
-After initialization, the system verifies connectivity and begins monitoring
-temperature and presence conditions.
-</p>
-
-<p>
-If heat is detected while no human presence is reported, the controller begins
-tracking elapsed time for the condition. If the situation persists beyond a
-threshold, the system escalates by sending notifications and eventually
-activating a local alarm.
-</p>
-
-<p>
-The alarm remains active until the condition is acknowledged through either
-user interaction or system verification.
-</p>
-
-</section>
-
-<section id="components" class="card">
-
-<h2>Major Components</h2>
-
-<ul>
-<li>CC3200 LaunchPad Microcontroller</li>
-<li>Infrared Temperature Sensor</li>
-<li>mmWave Human Presence Radar</li>
-<li>Adafruit OLED Display</li>
-<li>Relay Control Module</li>
-<li>Alarm Output Device</li>
-<li>User Push Button</li>
-<li>AWS Cloud Communication Interface</li>
-</ul>
-
-</section>
-
-<section id="timeline" class="card">
-
-<h2>Project Timeline</h2>
-
-<p>
-This timeline summarizes the major phases of the HADES project from early planning
-to system integration and final testing.
-</p>
-
-<div class="timeline">
-
-  <div class="timeline-item">
-    <h3>Phase 1 — Project Planning</h3>
+  <section id="overview" class="card">
+    <h2>Project Overview</h2>
     <p>
-      Defined the project goal, selected the safety monitoring concept,
-      and identified the hardware and cloud components needed for the system.
+      HADES is an embedded monitoring system designed to detect potentially dangerous
+      situations where a heat source remains active while no person is present
+      to supervise it.
     </p>
-  </div>
-
-  <div class="timeline-item">
-    <h3>Phase 2 — Sensor Integration</h3>
     <p>
-      Integrated the infrared temperature sensor and mmWave radar module with the CC3200
-      and verified communication through the required interfaces.
+      The system combines infrared temperature sensing with mmWave human presence
+      detection to determine whether heat is being actively monitored by a user.
     </p>
-  </div>
-
-  <div class="timeline-item">
-    <h3>Phase 3 — Display and User Interaction</h3>
     <p>
-      Implemented the OLED display interface and user interaction features,
-      allowing the system to show status information and accept manual user input.
+      If a strong heat source is detected without nearby human presence for a sustained
+      period of time, the controller can escalate the situation by sending notifications
+      and activating a local alarm until the condition is acknowledged.
     </p>
-  </div>
+  </section>
 
-  <div class="timeline-item">
-    <h3>Phase 4 — Embedded Logic Development (Currently Finishing)</h3>
+  <section id="architecture" class="card">
+    <h2>System Architecture</h2>
     <p>
-      Implementing the system state-machine workflow, condition tracking logic,
-      and safety decision process used to determine when notifications and alarms
-      should be triggered.
+      The HADES system is centered around the CC3200 LaunchPad microcontroller which
+      acts as the primary control unit for sensing, processing, and device response.
     </p>
-  </div>
-
-  <div class="timeline-item">
-    <h3>Phase 5 — Cloud Communication</h3>
     <p>
-      Connecting the system to AWS services for notification handling,
-      remote monitoring, and cloud communication.
+      Sensors communicate with the controller using I2C and UART interfaces while the
+      OLED display is driven through SPI communication.
     </p>
-  </div>
-
-  <div class="timeline-item">
-    <h3>Phase 6 — Testing and Refinement</h3>
     <p>
-      Performing full system testing, refining thresholds and system behavior,
-      and preparing the project for the final demonstration.
+      GPIO connections support alarm control and user input, allowing the system
+      to combine sensing, display feedback, and local safety response.
     </p>
-  </div>
+  </section>
 
-</div>
+  <section id="state" class="card">
+    <h2>System State Machine</h2>
+    <p>
+      The HADES controller operates using a structured state-machine workflow.
+      After initialization, the system verifies connectivity and begins monitoring
+      temperature and presence conditions.
+    </p>
+    <p>
+      If heat is detected while no human presence is reported, the controller begins
+      tracking elapsed time for the condition and escalates the response when thresholds
+      are exceeded.
+    </p>
+  </section>
 
-</section>
+  <section id="components" class="card">
+    <h2>Major Components</h2>
+    <ul>
+      <li>CC3200 LaunchPad Microcontroller</li>
+      <li>Infrared Temperature Sensor</li>
+      <li>mmWave Human Presence Radar</li>
+      <li>Adafruit OLED Display</li>
+      <li>Relay Control Module</li>
+      <li>Alarm Output Device</li>
+      <li>User Push Button</li>
+      <li>AWS Cloud Communication Interface</li>
+    </ul>
+  </section>
 
-<section id="video" class="card">
+  <section id="timeline" class="card">
+    <h2>Project Timeline</h2>
+    <div class="timeline-grid">
 
-<h2>Project Video</h2>
+      <div class="timeline-card">
+        <span class="phase-tag">Phase 1</span>
+        <h3>Project Planning</h3>
+        <p>Defined project goals and selected the overall system architecture.</p>
+      </div>
 
-<p>
-This section can be used for your final demo video, walkthrough, or system showcase.
-Once your video is uploaded, replace the placeholder link below with the actual URL.
-</p>
+      <div class="timeline-card">
+        <span class="phase-tag">Phase 2</span>
+        <h3>Sensor Integration</h3>
+        <p>Connected and tested the temperature sensor and radar sensor.</p>
+      </div>
 
-<div class="video-box">
-  <p>
-    Demo Video:
-    <a href="YOUR_VIDEO_LINK_HERE" target="_blank">Watch the HADES project video</a>
-  </p>
-</div>
+      <div class="timeline-card">
+        <span class="phase-tag">Phase 3</span>
+        <h3>Display and User Interaction</h3>
+        <p>Implemented OLED display output and user input controls.</p>
+      </div>
 
-</section>
+      <div class="timeline-card current">
+        <span class="phase-tag">Phase 4</span>
+        <h3>Embedded Logic Development (Currently Finishing)</h3>
+        <p>Building the state-machine and decision logic for detection, notification, and alarm response.</p>
+      </div>
 
-<section id="goals" class="card">
+      <div class="timeline-card">
+        <span class="phase-tag">Phase 5</span>
+        <h3>Cloud Communication</h3>
+        <p>Integrating AWS communication and alert delivery for remote monitoring.</p>
+      </div>
 
-<h2>Design Goals</h2>
+      <div class="timeline-card">
+        <span class="phase-tag">Phase 6</span>
+        <h3>Testing and Refinement</h3>
+        <p>Testing reliability, tuning behavior, and preparing the final demo.</p>
+      </div>
 
-<p>
-The goal of this project is to develop an embedded safety system capable
-of detecting unattended heat sources before they become hazardous.
-</p>
+    </div>
+  </section>
 
-<p>
-By combining environmental sensing, presence detection, and cloud-based
-communication, HADES demonstrates a complete IoT monitoring system including
-sensing, decision-making, notification, and local hardware response.
-</p>
+  <section id="video" class="card">
+    <h2>Project Video</h2>
+    <p>
+      Add your final demo video here so visitors can watch the system walkthrough
+      directly on the page.
+    </p>
+    <div class="video-box">
+      <p>Replace the video link below with your YouTube embed link.</p>
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+          title="HADES Project Video"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </section>
 
-</section>
+  <section id="goals" class="card">
+    <h2>Design Goals</h2>
+    <p>
+      The goal of this project is to detect unattended heat sources before they become hazardous.
+    </p>
+    <p>
+      By combining sensing, embedded control, and cloud communication, HADES demonstrates
+      a complete IoT safety monitoring workflow.
+    </p>
+  </section>
 
 </div>
 
 <footer>
-<p>HADES Project | EEC 172 Final Project Website</p>
+  <p>HADES Project | EEC 172 Final Project Website</p>
 </footer>
 
+<button id="topButton" title="Back to top">↑</button>
+
 <script>
+/* SCROLL PROGRESS + BACKGROUND CHANGE + TOP BUTTON */
 window.addEventListener("scroll", function() {
   const scrollTop = window.scrollY;
   const pageHeight = document.body.scrollHeight - window.innerHeight;
@@ -543,10 +578,71 @@ window.addEventListener("scroll", function() {
   const g = Math.round(startG + (endG - startG) * scrollPercent);
   const b = Math.round(startB + (endB - startB) * scrollPercent);
 
-  document.body.style.background = `linear-gradient(180deg, rgb(${r},${g},${b}), #2b0d0d)`;
+  document.body.style.background =
+    `linear-gradient(180deg, rgb(${r},${g},${b}), #2b0d0d)`;
 
-  const progressBar = document.getElementById("progress-bar");
-  progressBar.style.width = `${scrollPercent * 100}%`;
+  document.getElementById("progress-bar").style.width =
+    (scrollPercent * 100) + "%";
+
+  const topButton = document.getElementById("topButton");
+  if (scrollTop > 400) {
+    topButton.classList.add("show");
+  } else {
+    topButton.classList.remove("show");
+  }
+});
+
+/* SCROLL REVEAL */
+const cards = document.querySelectorAll(".card");
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+}, { threshold: 0.15 });
+
+cards.forEach(card => observer.observe(card));
+
+/* ACTIVE NAV + SECTION BURN EFFECT */
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll("nav a");
+
+window.addEventListener("scroll", () => {
+  let current = "";
+
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    const sectionTop = section.offsetTop - 140;
+
+    if (window.scrollY >= sectionTop) {
+      current = section.getAttribute("id");
+    }
+
+    section.classList.remove("burned", "current");
+
+    if (rect.bottom < 120) {
+      section.classList.add("burned");
+    } else if (rect.top <= 220 && rect.bottom >= 220) {
+      section.classList.add("current");
+    }
+  });
+
+  navLinks.forEach(link => {
+    link.classList.remove("active");
+    if (link.getAttribute("href") === "#" + current) {
+      link.classList.add("active");
+    }
+  });
+});
+
+/* BACK TO TOP BUTTON */
+document.getElementById("topButton").addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 });
 </script>
 
