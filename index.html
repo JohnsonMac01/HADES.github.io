@@ -245,9 +245,9 @@ border-top:4px solid #ffb347;
 box-shadow:0 0 0 1px rgba(255,179,71,0.25), 0 6px 18px rgba(0,0,0,0.25);
 }
 
-/* Final Project Image */
+/* Final Project Gallery */
 
-.project-photo-box{
+.gallery-box{
 margin-top:18px;
 background:#3a1717;
 padding:20px;
@@ -255,7 +255,8 @@ border-radius:16px;
 box-shadow:0 6px 18px rgba(0,0,0,0.2);
 }
 
-.project-photo-frame{
+.gallery-frame{
+position:relative;
 width:100%;
 background:#140707;
 border-radius:16px;
@@ -263,17 +264,89 @@ overflow:hidden;
 border:1px solid rgba(255,255,255,0.06);
 }
 
-.project-photo-frame img{
+.gallery-slide{
+display:none;
+animation:fadeSlide .35s ease;
+}
+
+.gallery-slide.active{
+display:block;
+}
+
+.gallery-slide img{
 width:100%;
 display:block;
 object-fit:cover;
 max-height:650px;
 }
 
-.photo-caption{
-margin-top:14px;
+.gallery-arrow{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+width:52px;
+height:52px;
+border:none;
+border-radius:50%;
+background:rgba(20,7,7,0.82);
+color:#fff;
+font-size:1.5rem;
+cursor:pointer;
+z-index:10;
+transition:.25s ease;
+}
+
+.gallery-arrow:hover{
+background:#ff5a36;
+}
+
+.gallery-arrow.prev{
+left:16px;
+}
+
+.gallery-arrow.next{
+right:16px;
+}
+
+.gallery-info{
+margin-top:16px;
+background:linear-gradient(180deg,#381515,#2e1010);
+padding:18px;
+border-radius:14px;
+}
+
+.gallery-info h3{
+margin-bottom:8px;
+color:#fff3f0;
+}
+
+.gallery-caption{
+margin-top:10px;
 color:#ffd9d0;
 font-size:.98rem;
+}
+
+.gallery-dots{
+display:flex;
+justify-content:center;
+gap:10px;
+margin-top:16px;
+flex-wrap:wrap;
+}
+
+.gallery-dot{
+width:12px;
+height:12px;
+border-radius:50%;
+border:none;
+background:rgba(255,255,255,0.25);
+cursor:pointer;
+transition:.25s ease;
+}
+
+.gallery-dot.active{
+background:#ff8a65;
+transform:scale(1.12);
 }
 
 /* Video */
@@ -343,6 +416,11 @@ visibility:visible;
 100%{background-position:0% 50%;}
 }
 
+@keyframes fadeSlide{
+from{opacity:.35;}
+to{opacity:1;}
+}
+
 @media(max-width:900px){
 .timeline-grid,.sensor-grid,.two-col{grid-template-columns:1fr;}
 }
@@ -355,6 +433,11 @@ nav a{margin:6px 10px;}
 display:block;
 overflow-x:auto;
 white-space:nowrap;
+}
+.gallery-arrow{
+width:44px;
+height:44px;
+font-size:1.2rem;
 }
 }
 </style>
@@ -441,7 +524,7 @@ Measures heat levels from a stove or appliance without physical contact.
 Detects whether a human is present in the kitchen while maintaining privacy.
 </p>
 </div>
-  
+
 </div>
 </section>
 
@@ -511,7 +594,7 @@ Breadboard PSU
 
 <tr>
 <td>
-<a href="https://www.amazon.com/WWZMDiB-SYB-170-Breadboard-Plates-Multicolored/dp/B09YXQJMTG/ref=sr_1_3?crid=FCR3OH1PELMC&dib=eyJ2IjoiMSJ9.dufGLUwPPHwtwQRK5n8GRb7Ag4BcYq90On7DZz2AAmpib-D1RagcYGoCt06ml8r1O6HyrwWl_OCJ2BxZJXTBUfMPlVTt1JOtPBBLB5gVhO6yLvn0mWTmcDvuy9KbNj1Rv6ZKutE_j88cBI3MeSwQIp8O5zTBRcWoHq5prSYGWpvkEpUsaD6twGlp0lLpI6NllpmN1pIZRL8W_XHg-y92aBLVHRj6f_yzk4iiwHjl-DQ.xc2I_1ZPiuJSZLCMMyHGDzBu2KhT2hakCD7h4EqCkbw&dib_tag=se&keywords=mini+breadboards&qid=1773372482&sprefix=mini+breadboard%2Caps%2C162&sr=8-3" target="_blank">
+<a href="https://www.amazon.com/WWZMDiB-SYB-170-Breadboard-Plates-Multicolored/dp/B09YXQJMTG/ref=sr_1_3?crid=FCR3OH1PELMC&dib=eyJ2IjoiMSJ9.dufGLUwPPHwtwQRK5n8GRb7Ag4BcHkQ90On7DZz2AAmpib-D1RagcYGoCt06ml8r1O6HyrwWl_OCJ2BxZJXTBUfMPlVTt1JOtPBBLB5gVhO6yLvn0mWTmcDvuy9KbNj1Rv6ZKutE_j88cBI3MeSwQIp8O5zTBRcWoHq5prSYGWpvkEpUsaD6twGlp0lLpI6NllpmN1pIZRL8W_XHg-y92aBLVHRj6f_yzk4iiwHjl-DQ.xc2I_1ZPiuJSZLCMMyHGDzBu2KhT2hakCD7h4EqCkbw&dib_tag=se&keywords=mini+breadboards&qid=1773372482&sprefix=mini+breadboard%2Caps%2C162&sr=8-3" target="_blank">
 Mini Breadboard 6 Pack
 </a>
 </td>
@@ -646,19 +729,51 @@ AdaFruit OLED Display
 <h2>Final Project Build</h2>
 
 <p class="lead">
+Below is a gallery of the HADES prototype showing different stages and views of the final build.
 </p>
 
-<p>
-Final Design
-</p>
+<div class="gallery-box">
 
-<div class="project-photo-box">
-<div class="project-photo-frame">
-<img src="setup.jpg" alt="Final HADES project build">
+<div class="gallery-frame">
+
+<button class="gallery-arrow prev" aria-label="Previous image">&#10094;</button>
+<button class="gallery-arrow next" aria-label="Next image">&#10095;</button>
+
+<div class="gallery-slide active">
+<img src="setup.jpg" alt="Full final HADES system setup">
 </div>
-<p class="photo-caption">
-Final Design of HADES
+
+<div class="gallery-slide">
+<img src="images/sensor1.png" alt="mmWave radar used in HADES">
+</div>
+
+<div class="gallery-slide">
+<img src="images/sensor2.png" alt="IR temperature sensor used in HADES">
+</div>
+
+<div class="gallery-slide">
+<img src="images/oled.png" alt="OLED display used in HADES">
+</div>
+
+</div>
+
+<div class="gallery-info">
+<h3 id="gallery-title">Final Integrated System</h3>
+<p id="gallery-description">
+This view shows the overall HADES prototype with the integrated sensing, processing, and alerting hardware connected together as a complete system.
 </p>
+<p class="gallery-caption" id="gallery-caption">
+Slide 1 of 4
+</p>
+</div>
+
+<div class="gallery-dots">
+<button class="gallery-dot active" aria-label="Go to slide 1"></button>
+<button class="gallery-dot" aria-label="Go to slide 2"></button>
+<button class="gallery-dot" aria-label="Go to slide 3"></button>
+<button class="gallery-dot" aria-label="Go to slide 4"></button>
+</div>
+
 </div>
 </section>
 
@@ -667,7 +782,7 @@ Final Design of HADES
 
 <div class="video-box">
 <div class="video-frame">
-<iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+<iframe src="https://youtu.be/JcD6zjXWuNo" allowfullscreen></iframe>
 </div>
 </div>
 
@@ -708,6 +823,68 @@ cards.forEach(card=>observer.observe(card));
 
 document.getElementById("topButton").addEventListener("click",()=>{
 window.scrollTo({top:0,behavior:"smooth"});
+});
+
+/* Gallery */
+
+const slides=document.querySelectorAll(".gallery-slide");
+const dots=document.querySelectorAll(".gallery-dot");
+const prevBtn=document.querySelector(".gallery-arrow.prev");
+const nextBtn=document.querySelector(".gallery-arrow.next");
+const galleryTitle=document.getElementById("gallery-title");
+const galleryDescription=document.getElementById("gallery-description");
+const galleryCaption=document.getElementById("gallery-caption");
+
+const galleryData=[
+{
+title:"Final Integrated System",
+description:"This view shows the overall HADES prototype with the integrated sensing, processing, and alerting hardware connected together as a complete system."
+},
+{
+title:"Human Presence Detection Sensor",
+description:"This slide highlights the mmWave radar module used to detect whether a person is actively present near the monitored cooking area."
+},
+{
+title:"Temperature Sensing Module",
+description:"This image shows the MLX90614 contactless IR temperature sensor used to monitor heat sources without requiring direct contact."
+},
+{
+title:"Display and User Feedback",
+description:"This slide shows the OLED display component that can present system status, sensor information, and alert feedback to the user."
+}
+];
+
+let currentSlide=0;
+
+function showSlide(index){
+if(index<0){currentSlide=slides.length-1;}
+else if(index>=slides.length){currentSlide=0;}
+else{currentSlide=index;}
+
+slides.forEach((slide,i)=>{
+slide.classList.toggle("active",i===currentSlide);
+});
+
+dots.forEach((dot,i)=>{
+dot.classList.toggle("active",i===currentSlide);
+});
+
+galleryTitle.textContent=galleryData[currentSlide].title;
+galleryDescription.textContent=galleryData[currentSlide].description;
+galleryCaption.textContent=`Slide ${currentSlide+1} of ${slides.length}`;
+}
+
+prevBtn.addEventListener("click",()=>showSlide(currentSlide-1));
+nextBtn.addEventListener("click",()=>showSlide(currentSlide+1));
+
+dots.forEach((dot,index)=>{
+dot.addEventListener("click",()=>showSlide(index));
+});
+
+/* Optional keyboard support */
+document.addEventListener("keydown",(e)=>{
+if(e.key==="ArrowLeft"){showSlide(currentSlide-1);}
+if(e.key==="ArrowRight"){showSlide(currentSlide+1);}
 });
 </script>
 
