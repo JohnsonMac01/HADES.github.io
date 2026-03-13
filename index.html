@@ -1,719 +1,567 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HADES | Human-Alerting Device for Emergency Situations</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HADES | Human Alerting Device for Emergency Situations</title>
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-    }
+<style>
 
-    html{
-      scroll-behavior:smooth;
-    }
+*{margin:0;padding:0;box-sizing:border-box;}
 
-    body{
-      font-family:"Segoe UI", Arial, sans-serif;
-      background:linear-gradient(180deg,#1a0707,#2b0d0d);
-      color:#f8eaea;
-      line-height:1.6;
-      transition:background 0.35s ease;
-    }
+html{scroll-behavior:smooth;}
 
-    #progress-container{
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:10px;
-      background:#180707;
-      border-bottom:1px solid rgba(255,255,255,0.08);
-      z-index:2000;
-    }
+body{
+font-family:"Segoe UI", Arial, sans-serif;
+background:linear-gradient(180deg,#1a0707,#2b0d0d);
+color:#f8eaea;
+line-height:1.6;
+transition:background .35s ease;
+}
 
-    #progress-bar{
-      height:100%;
-      width:0%;
-      background:linear-gradient(90deg,#ffb347,#f97316,#ef4444);
-      box-shadow:
-        0 0 8px rgba(249,115,22,0.8),
-        0 0 16px rgba(239,68,68,0.7);
-      transition:width 0.08s linear;
-    }
+/* Progress Bar */
 
-    header{
-      background:linear-gradient(135deg,#2b0d0d,#5c1111,#8b1e1e,#dc2626);
-      background-size:200% 200%;
-      padding:110px 20px 90px;
-      text-align:center;
-      box-shadow:0 6px 25px rgba(0,0,0,0.35);
-      position:relative;
-      overflow:hidden;
-      animation:headerShift 8s ease infinite;
-    }
+#progress-container{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:10px;
+background:#180707;
+z-index:2000;
+}
 
-    header::before{
-      content:"";
-      position:absolute;
-      top:-30%;
-      left:-20%;
-      width:140%;
-      height:160%;
-      background:
-        radial-gradient(circle at 20% 30%, rgba(255,140,80,0.24), transparent 20%),
-        radial-gradient(circle at 70% 35%, rgba(255,90,60,0.20), transparent 22%),
-        radial-gradient(circle at 50% 70%, rgba(255,180,80,0.16), transparent 24%);
-      animation:fireGlow 4s ease-in-out infinite alternate;
-      pointer-events:none;
-    }
+#progress-bar{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#ffb347,#f97316,#ef4444);
+transition:width .08s linear;
+}
 
-    header h1{
-      position:relative;
-      font-size:3.8rem;
-      letter-spacing:2px;
-      margin-bottom:8px;
-      color:#fff5f5;
-      text-shadow:
-        0 0 10px rgba(255,120,80,0.45),
-        0 0 20px rgba(255,70,40,0.28);
-      z-index:1;
-    }
+/* Header */
 
-    .subtitle{
-      position:relative;
-      font-size:1.2rem;
-      color:#ffe2d2;
-      margin-bottom:10px;
-      z-index:1;
-    }
+header{
+background:linear-gradient(135deg,#2b0d0d,#5c1111,#8b1e1e,#dc2626);
+background-size:200% 200%;
+padding:110px 20px 90px;
+text-align:center;
+box-shadow:0 6px 25px rgba(0,0,0,0.35);
+position:relative;
+animation:headerShift 8s ease infinite;
+}
 
-    .team{
-      position:relative;
-      font-size:1rem;
-      color:#fff0e8;
-      opacity:0.95;
-      z-index:1;
-    }
+header h1{
+font-size:3.8rem;
+letter-spacing:2px;
+margin-bottom:8px;
+color:#fff5f5;
+}
 
-    nav{
-      background:#220909;
-      padding:15px;
-      text-align:center;
-      position:sticky;
-      top:10px;
-      z-index:1500;
-      border-bottom:1px solid rgba(255,255,255,0.08);
-      box-shadow:0 3px 12px rgba(0,0,0,0.18);
-    }
+.subtitle{
+font-size:1.2rem;
+color:#ffe2d2;
+margin-bottom:10px;
+}
 
-    nav a{
-      color:#ffb4a2;
-      text-decoration:none;
-      margin:0 14px;
-      font-weight:600;
-      transition:0.25s ease;
-      display:inline-block;
-    }
+.team{
+font-size:1rem;
+color:#fff0e8;
+}
 
-    nav a:hover{
-      color:#ffffff;
-      text-shadow:0 0 8px rgba(255,120,80,0.55);
-    }
+/* Navigation */
 
-    nav a.active{
-      color:#ffffff;
-      text-shadow:
-        0 0 8px rgba(255,120,80,0.65),
-        0 0 16px rgba(255,69,0,0.35);
-    }
+nav{
+background:#220909;
+padding:15px;
+text-align:center;
+position:sticky;
+top:10px;
+z-index:1500;
+}
 
-    .container{
-      width:90%;
-      max-width:1150px;
-      margin:40px auto;
-    }
+nav a{
+color:#ffb4a2;
+text-decoration:none;
+margin:0 14px;
+font-weight:600;
+}
 
-    .card{
-      background:#2a1111;
-      padding:30px;
-      margin-bottom:30px;
-      border-radius:18px;
-      box-shadow:0 6px 20px rgba(0,0,0,0.3);
-      scroll-margin-top:100px;
-      border:1px solid rgba(255,255,255,0.05);
-      transition:
-        transform 0.4s ease,
-        box-shadow 0.3s ease,
-        opacity 0.5s ease,
-        filter 0.5s ease;
-      opacity:0;
-      transform:translateY(28px);
-    }
+nav a:hover{color:white;}
 
-    .card.show{
-      opacity:1;
-      transform:translateY(0);
-    }
+.container{
+width:90%;
+max-width:1150px;
+margin:40px auto;
+}
 
-    .card.burned{
-      opacity:0.35;
-      filter:blur(2px) saturate(0.8);
-      transform:scale(0.985);
-    }
+/* Cards */
 
-    .card.current{
-      opacity:1;
-      filter:none;
-      transform:translateY(0) scale(1);
-    }
+.card{
+background:#2a1111;
+padding:30px;
+margin-bottom:30px;
+border-radius:18px;
+box-shadow:0 6px 20px rgba(0,0,0,0.3);
+opacity:0;
+transform:translateY(28px);
+transition:.4s ease;
+}
 
-    .card:hover{
-      box-shadow:0 10px 28px rgba(0,0,0,0.35);
-    }
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
 
-    .card h2{
-      color:#ff6b57;
-      margin-bottom:15px;
-      font-size:1.8rem;
-    }
+.card h2{
+color:#ff6b57;
+margin-bottom:15px;
+font-size:1.8rem;
+}
 
-    .card p{
-      margin-bottom:12px;
-      color:#ffe7e0;
-    }
+.card p{
+margin-bottom:12px;
+color:#ffe7e0;
+}
 
-    .lead{
-      font-size:1.05rem;
-    }
+.lead{font-size:1.05rem;}
 
-    ul{
-      padding-left:22px;
-      margin-top:8px;
-    }
+ul{padding-left:22px;margin-top:8px;}
 
-    li{
-      margin-bottom:8px;
-      color:#ffe7e0;
-    }
+li{margin-bottom:8px;color:#ffe7e0;}
 
-    .two-col{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:18px;
-      margin-top:18px;
-    }
+.two-col{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+margin-top:18px;
+}
 
-    .mini-card{
-      background:linear-gradient(180deg,#381515,#2e1010);
-      border:1px solid rgba(255,255,255,0.06);
-      border-radius:16px;
-      padding:20px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.24);
-    }
+.mini-card{
+background:linear-gradient(180deg,#381515,#2e1010);
+border-radius:16px;
+padding:20px;
+}
 
-    .mini-card h3{
-      color:#fff0f0;
-      margin-bottom:10px;
-      font-size:1.15rem;
-    }
+.pill{
+display:inline-block;
+font-size:.85rem;
+font-weight:700;
+color:#ffd9d0;
+background:rgba(255,255,255,0.06);
+padding:6px 10px;
+border-radius:999px;
+margin-bottom:12px;
+}
 
-    .pill{
-      display:inline-block;
-      font-size:0.85rem;
-      font-weight:700;
-      letter-spacing:0.4px;
-      text-transform:uppercase;
-      color:#ffd9d0;
-      background:rgba(255,255,255,0.06);
-      padding:6px 10px;
-      border-radius:999px;
-      margin-bottom:12px;
-    }
+/* Sensor cards */
 
-    .sensor-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:18px;
-      margin-top:18px;
-    }
+.sensor-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+margin-top:18px;
+}
 
-    .sensor-card{
-      background:linear-gradient(180deg,#381515,#2e1010);
-      border:1px solid rgba(255,255,255,0.06);
-      border-radius:16px;
-      padding:22px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.24);
-      transition:transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    }
+.sensor-card{
+background:linear-gradient(180deg,#381515,#2e1010);
+border-radius:16px;
+padding:22px;
+}
 
-    .sensor-card:hover{
-      transform:translateY(-6px) scale(1.01);
-      box-shadow:0 12px 24px rgba(0,0,0,0.3), 0 0 18px rgba(255,90,54,0.15);
-      border-color:rgba(255,120,120,0.28);
-    }
+/* BoM Table */
 
-    .sensor-card h3{
-      color:#fff0f0;
-      font-size:1.2rem;
-      margin-bottom:10px;
-    }
+.bom-table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+background:#2e1010;
+}
 
-    .timeline-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:18px;
-      margin-top:20px;
-    }
+.bom-table th{
+background:#3a1717;
+padding:14px;
+text-align:left;
+}
 
-    .timeline-card{
-      background:linear-gradient(180deg,#381515,#2e1010);
-      border:1px solid rgba(255,255,255,0.06);
-      border-radius:16px;
-      padding:20px;
-      box-shadow:0 6px 18px rgba(0,0,0,0.24);
-      position:relative;
-      overflow:hidden;
-      transition:transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-      cursor:pointer;
-    }
+.bom-table td{
+padding:14px;
+border-bottom:1px solid rgba(255,255,255,0.05);
+}
 
-    .timeline-card::before{
-      content:"";
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:4px;
-      background:linear-gradient(90deg,#ff7b7b,#ff5a36,#ffb347);
-    }
+.bom-img{
+width:70px;
+height:70px;
+object-fit:contain;
+background:#140707;
+padding:6px;
+}
 
-    .timeline-card:hover{
-      transform:translateY(-6px) scale(1.01);
-      box-shadow:0 12px 24px rgba(0,0,0,0.3), 0 0 18px rgba(255,90,54,0.15);
-      border-color:rgba(255,120,120,0.28);
-    }
+/* Timeline */
 
-    .timeline-card h3{
-      color:#fff0f0;
-      font-size:1.15rem;
-      margin-bottom:10px;
-      line-height:1.35;
-    }
+.timeline-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+margin-top:20px;
+}
 
-    .timeline-card.current{
-      border:1px solid rgba(255,120,120,0.35);
-      box-shadow:
-        0 8px 22px rgba(0,0,0,0.28),
-        0 0 16px rgba(255,90,54,0.18);
-    }
+.timeline-card{
+background:linear-gradient(180deg,#381515,#2e1010);
+padding:20px;
+border-radius:16px;
+}
 
-    .warning-box{
-      margin-top:18px;
-      background:#3a1717;
-      padding:20px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,0.06);
-    }
+/* Video */
 
-    .video-box{
-      margin-top:18px;
-      background:#3a1717;
-      padding:20px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,0.06);
-    }
+.video-box{
+margin-top:18px;
+background:#3a1717;
+padding:20px;
+border-radius:16px;
+}
 
-    .video-frame{
-      position:relative;
-      width:100%;
-      padding-top:56.25%;
-      border-radius:14px;
-      overflow:hidden;
-      background:#140707;
-      margin-top:14px;
-    }
+.video-frame{
+position:relative;
+width:100%;
+padding-top:56.25%;
+}
 
-    .video-frame iframe{
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      border:0;
-    }
+.video-frame iframe{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+}
 
-    #topButton{
-      position:fixed;
-      right:24px;
-      bottom:24px;
-      width:52px;
-      height:52px;
-      border:none;
-      border-radius:50%;
-      background:linear-gradient(135deg,#ff6b6b,#ff5a36);
-      color:white;
-      font-size:1.35rem;
-      cursor:pointer;
-      box-shadow:
-        0 8px 18px rgba(0,0,0,0.28),
-        0 0 14px rgba(255,90,54,0.25);
-      opacity:0;
-      visibility:hidden;
-      transform:translateY(10px);
-      transition:opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
-      z-index:1800;
-    }
+/* Footer */
 
-    #topButton.show{
-      opacity:1;
-      visibility:visible;
-      transform:translateY(0);
-    }
+footer{
+text-align:center;
+padding:25px;
+background:#220909;
+color:#f0b4b4;
+margin-top:40px;
+}
 
-    footer{
-      text-align:center;
-      padding:25px;
-      background:#220909;
-      color:#f0b4b4;
-      margin-top:40px;
-    }
+#topButton{
+position:fixed;
+right:24px;
+bottom:24px;
+width:52px;
+height:52px;
+border:none;
+border-radius:50%;
+background:#ff5a36;
+color:white;
+font-size:1.35rem;
+cursor:pointer;
+opacity:0;
+visibility:hidden;
+transition:.25s ease;
+}
 
-    @keyframes headerShift{
-      0%{background-position:0% 50%;}
-      50%{background-position:100% 50%;}
-      100%{background-position:0% 50%;}
-    }
+#topButton.show{
+opacity:1;
+visibility:visible;
+}
 
-    @keyframes fireGlow{
-      0%{
-        transform:scale(1) translateY(0px);
-        opacity:0.7;
-        filter:blur(8px);
-      }
-      100%{
-        transform:scale(1.05) translateY(-8px);
-        opacity:1;
-        filter:blur(14px);
-      }
-    }
+@keyframes headerShift{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
 
-    @media(max-width:900px){
-      .timeline-grid,
-      .sensor-grid,
-      .two-col{
-        grid-template-columns:1fr;
-      }
-    }
+@media(max-width:900px){
+.timeline-grid,.sensor-grid,.two-col{grid-template-columns:1fr;}
+}
 
-    @media(max-width:768px){
-      header h1{
-        font-size:2.7rem;
-      }
-
-      nav a{
-        margin:6px 10px;
-      }
-
-      .card{
-        padding:24px;
-      }
-    }
-  </style>
+</style>
 </head>
 
 <body>
 
-  <div id="progress-container">
-    <div id="progress-bar"></div>
-  </div>
+<div id="progress-container">
+<div id="progress-bar"></div>
+</div>
 
-  <header>
-    <h1>HADES</h1>
-    <p class="subtitle">Human-Alerting Device for Emergency Situations</p>
-    <p class="team">Ahmed Khan • Johnson Mac</p>
-  </header>
+<header>
+<h1>HADES</h1>
+<p class="subtitle">Human Alerting Device for Emergency Situations</p>
+<p class="team">Ahmed Khan • Johnson Mac</p>
+</header>
 
-  <nav>
-    <a href="#overview">Overview</a>
-    <a href="#motivation">Why HADES?</a>
-    <a href="#objectives">Objectives</a>
-    <a href="#sensors">Sensors</a>
-    <a href="#progress">Progress</a>
-    <a href="#timeline">Timeline</a>
-    <a href="#video">Video</a>
-  </nav>
+<nav>
+<a href="#overview">Overview</a>
+<a href="#motivation">Why HADES?</a>
+<a href="#sensors">Sensors</a>
+<a href="#bom">BoM</a>
+<a href="#progress">Goals</a>
+<a href="#timeline">Timeline</a>
+<a href="#video">Video</a>
+</nav>
 
-  <div class="container">
+<div class="container">
 
-    <section id="overview" class="card">
-      <h2>Project Overview</h2>
-      <p class="lead">
-        HADES is an embedded monitoring system designed to detect situations where a heat source remains active while no one is present to supervise it.
-      </p>
-      <p>
-        Our approach is to monitor temperature and human presence together so the device can recognize a potentially dangerous unattended condition before it becomes a fire emergency.
-      </p>
-      <p>
-        Unlike systems that only react after smoke or fire is already present, HADES is intended to warn the user earlier through a local alarm and IoT-based notification.
-      </p>
-    </section>
+<section id="overview" class="card">
+<h2>Project Overview</h2>
 
-    <section id="motivation" class="card">
-      <h2>Why HADES?</h2>
-      <p>
-        Neglected stoves cause over 70,000 house fires in the United States each year, which makes unattended cooking a major household safety concern.
-      </p>
-      <p>
-        Traditional devices such as smoke detectors and sprinklers are important, but they typically respond only after a fire has already started.
-      </p>
-      <p>
-        HADES is meant to act earlier by identifying risky conditions before the situation escalates.
-      </p>
-    </section>
+<p class="lead">
+HADES is an embedded safety system designed to detect hazardous cooking situations before a fire occurs.
+</p>
 
-    <section id="objectives" class="card">
-      <h2>Objectives and Existing Products</h2>
-      <p>
-        The goal of HADES is to create a monitoring system for situations where a heat source remains active with no human presence for a prolonged period of time.
-      </p>
+<p>
+Over 350,000 house fires occur each year in the United States, and neglected cooking appliances are a major cause. Traditional systems like smoke alarms or sprinkler systems activate only after a fire has already begun.
+</p>
 
-      <div class="two-col">
-        <div class="mini-card">
-          <span class="pill">Existing Products</span>
-          <h3>Current Market Comparison</h3>
-          <ul>
-            <li>iGuard Electric Plug for Stoves — approximately $495</li>
-            <li>CTS Smart Kitchen Sensor — approximately $400</li>
-          </ul>
-        </div>
+<p>
+HADES monitors both heat sources and human presence in a kitchen environment. If a heat source remains active while no human presence is detected for an extended period, the system can notify users through the internet or trigger a local alarm.
+</p>
 
-        <div class="mini-card">
-          <span class="pill">HADES Difference</span>
-          <h3>What Makes This Project Different</h3>
-          <ul>
-            <li>Includes a local warning alarm</li>
-            <li>Uses IoT for user notifications</li>
-            <li>Designed without requiring electrician installation</li>
-            <li>Aims to provide a lower-cost alternative</li>
-          </ul>
-        </div>
-      </div>
-    </section>
+<p>
+The goal is to provide an early warning system that allows users to intervene before a fire starts.
+</p>
 
-    <section id="sensors" class="card">
-      <h2>Sensors Used</h2>
+</section>
 
-      <div class="sensor-grid">
-        <div class="sensor-card">
-          <span class="pill">Temperature</span>
-          <h3>MLX90614</h3>
-          <p>
-            HADES uses the MLX90614, a contactless infrared temperature sensor, to detect heat from a distance.
-          </p>
-        </div>
+<section id="motivation" class="card">
+<h2>Why HADES?</h2>
 
-        <div class="sensor-card">
-          <span class="pill">Presence</span>
-          <h3>LD2410</h3>
-          <p>
-            Human presence is detected using the LD2410, a 24 GHz millimeter wave radar sensor.
-          </p>
-        </div>
-      </div>
-    </section>
+<p>
+Cooking related fires are among the most common causes of residential fires. Many occur simply because a stove or appliance is left unattended.
+</p>
 
-    <section id="progress" class="card">
-      <h2>Progress Report</h2>
+<p>
+Existing safety devices only respond after the fire begins, which can already cause serious property damage or require emergency intervention.
+</p>
 
-      <div class="two-col">
-        <div class="mini-card">
-          <span class="pill">Finished</span>
-          <h3>Completed Work</h3>
-          <ul>
-            <li>Finished circuit configuration and chassis with clean cable management</li>
-            <li>Temperature and real-time clock streaming on the shared I2C bus with smoothing and display</li>
-            <li>Working warning timer that counts down to an alarm state and latches until the device is disabled</li>
-          </ul>
-        </div>
+<p>
+HADES focuses on preventing these situations by detecting the conditions that lead to fires instead of reacting after the fact.
+</p>
 
-        <div class="mini-card">
-          <span class="pill">In Progress</span>
-          <h3>Current Work</h3>
-          <ul>
-            <li>Radar currently signals over basic GPIO, with UART preferred for finer control over sensitivity and distance</li>
-            <li>Need button interface for alarm disarming and user configuration of time, temperature, and privacy settings</li>
-            <li>Need to add AWS notifications to the user</li>
-          </ul>
-        </div>
-      </div>
+</section>
 
-      <div class="warning-box">
-        <span class="pill">Demo Configuration</span>
-        <p>
-          For demonstration, the temperature threshold was reduced to 200°F and the warning period was reduced to 5 seconds.
-        </p>
-        <p>
-          The planned final testing configuration is 100°C with a 60-second warning timer.
-        </p>
-        <p>
-          The radar is currently very sensitive, so unattended testing is planned in a safe and controlled environment.
-        </p>
-      </div>
-    </section>
+<section id="sensors" class="card">
+<h2>Sensors Used</h2>
 
-    <section id="timeline" class="card">
-      <h2>Project Timeline</h2>
+<div class="sensor-grid">
 
-      <div class="timeline-grid">
-        <div class="timeline-card">
-          <span class="pill">Phase 1</span>
-          <h3>Project Planning</h3>
-          <p>Defined the problem, overall goal, and product direction.</p>
-        </div>
+<div class="sensor-card">
+<span class="pill">Temperature Detection</span>
+<h3>MLX90614 Contactless IR Sensor</h3>
+<p>
+Measures heat levels from a stove or appliance without physical contact.
+</p>
+</div>
 
-        <div class="timeline-card">
-          <span class="pill">Phase 2</span>
-          <h3>Sensor Integration</h3>
-          <p>Integrated the MLX90614 temperature sensor and LD2410 radar presence sensor.</p>
-        </div>
+<div class="sensor-card">
+<span class="pill">Human Presence</span>
+<h3>C4001 mmWave Radar</h3>
+<p>
+Detects whether a human is present in the kitchen while maintaining privacy.
+</p>
+</div>
 
-        <div class="timeline-card">
-          <span class="pill">Phase 3</span>
-          <h3>Display and Shared Bus Integration</h3>
-          <p>Streamed temperature and real-time clock data over the shared I2C bus with display support.</p>
-        </div>
+</div>
+</section>
 
-        <div class="timeline-card current">
-          <span class="pill">Phase 4</span>
-          <h3>Embedded Logic Development (Currently Finishing)</h3>
-          <p>Finalizing warning timer, alarm behavior, and detection-response logic.</p>
-        </div>
+<section id="bom" class="card">
+<h2>Bill of Materials</h2>
 
-        <div class="timeline-card">
-          <span class="pill">Phase 5</span>
-          <h3>User Controls and AWS Alerts</h3>
-          <p>Adding button-based configuration, alarm disarming, and IoT notifications.</p>
-        </div>
+<table class="bom-table">
 
-        <div class="timeline-card">
-          <span class="pill">Phase 6</span>
-          <h3>Final Testing and Demo</h3>
-          <p>Refining thresholds, testing in controlled conditions, and preparing the final demonstration.</p>
-        </div>
-      </div>
-    </section>
+<thead>
+<tr>
+<th>Component</th>
+<th>Image</th>
+<th>Qty</th>
+<th>Price</th>
+<th>Source</th>
+</tr>
+</thead>
 
-    <section id="video" class="card">
-      <h2>Project Video</h2>
-      <p>
-        Replace the embedded link below with your final demo video once it is ready.
-      </p>
+<tbody>
 
-      <div class="video-box">
-        <div class="video-frame">
-          <iframe
-            src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
-            title="HADES Project Video"
-            allowfullscreen>
-          </iframe>
-        </div>
-      </div>
-    </section>
+<tr>
+<td>MLX90614 Contactless IR</td>
+<td><img class="bom-img" src="images/mlx90614.jpg"></td>
+<td>1</td>
+<td>$18.50</td>
+<td>DF Robot</td>
+</tr>
 
-  </div>
+<tr>
+<td>C4001 mmWave Radar</td>
+<td><img class="bom-img" src="images/mmwave.jpg"></td>
+<td>1</td>
+<td>$8.90</td>
+<td>DF Robot</td>
+</tr>
 
-  <footer>
-    <p>HADES Project | Human-Alerting Device for Emergency Situations</p>
-  </footer>
+<tr>
+<td>X-Ump 17383 Car Alarm</td>
+<td><img class="bom-img" src="images/alarm.jpg"></td>
+<td>1</td>
+<td>$5.95</td>
+<td>X-Ump</td>
+</tr>
 
-  <button id="topButton" title="Back to top">↑</button>
+<tr>
+<td>1 Channel 5V Relay</td>
+<td><img class="bom-img" src="images/relay.jpg"></td>
+<td>1</td>
+<td>$1.89</td>
+<td>Arduino Kit</td>
+</tr>
 
-  <script>
-    window.addEventListener("scroll", function() {
-      const scrollTop = window.scrollY;
-      const pageHeight = document.body.scrollHeight - window.innerHeight;
-      const scrollPercent = pageHeight > 0 ? scrollTop / pageHeight : 0;
+<tr>
+<td>Breadboard PSU</td>
+<td><img class="bom-img" src="images/psu.jpg"></td>
+<td>1</td>
+<td>$3.95</td>
+<td>Arduino Kit</td>
+</tr>
 
-      const startR = 26;
-      const startG = 7;
-      const startB = 7;
+<tr>
+<td>Large Breadboard</td>
+<td><img class="bom-img" src="images/breadboard.jpg"></td>
+<td>1</td>
+<td>$3.25</td>
+<td>Arduino Kit</td>
+</tr>
 
-      const endR = 120;
-      const endG = 20;
-      const endB = 20;
+<tr>
+<td>CC3200 LaunchPad</td>
+<td><img class="bom-img" src="images/cc3200.jpg"></td>
+<td>1</td>
+<td>Existing</td>
+<td>Texas Instruments</td>
+</tr>
 
-      const r = Math.round(startR + (endR - startR) * scrollPercent);
-      const g = Math.round(startG + (endG - startG) * scrollPercent);
-      const b = Math.round(startB + (endB - startB) * scrollPercent);
+<tr>
+<td>OLED SPI Display</td>
+<td><img class="bom-img" src="images/oled.jpg"></td>
+<td>1</td>
+<td>Existing</td>
+<td>Adafruit</td>
+</tr>
 
-      document.body.style.background =
-        `linear-gradient(180deg, rgb(${r},${g},${b}), #2b0d0d)`;
+</tbody>
 
-      document.getElementById("progress-bar").style.width =
-        (scrollPercent * 100) + "%";
+</table>
 
-      const topButton = document.getElementById("topButton");
-      if (scrollTop > 400) {
-        topButton.classList.add("show");
-      } else {
-        topButton.classList.remove("show");
-      }
-    });
+<p style="margin-top:15px;font-weight:bold">Total Cost: $42.44</p>
 
-    const cards = document.querySelectorAll(".card");
+</section>
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("show");
-        }
-      });
-    }, { threshold: 0.15 });
+<section id="progress" class="card">
+<h2>Implementation Goals</h2>
 
-    cards.forEach(card => observer.observe(card));
+<div class="two-col">
 
-    const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll("nav a");
+<div class="mini-card">
+<span class="pill">Minimal Goals</span>
+<ul>
+<li>Acquire reliable readings from both sensors</li>
+<li>Detect heat and presence thresholds</li>
+<li>Trigger alarm when hazard detected without internet</li>
+</ul>
+</div>
 
-    window.addEventListener("scroll", () => {
-      let current = "";
+<div class="mini-card">
+<span class="pill">Target Goals</span>
+<ul>
+<li>Reduce false alarms using sensor fusion</li>
+<li>Add graphical display interface</li>
+<li>Allow user configuration of thresholds</li>
+</ul>
+</div>
 
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        const sectionTop = section.offsetTop - 140;
+</div>
 
-        if (window.scrollY >= sectionTop) {
-          current = section.getAttribute("id");
-        }
+</section>
 
-        section.classList.remove("burned", "current");
+<section id="timeline" class="card">
+<h2>Project Timeline</h2>
 
-        if (rect.bottom < 120) {
-          section.classList.add("burned");
-        } else if (rect.top <= 220 && rect.bottom >= 220) {
-          section.classList.add("current");
-        }
-      });
+<div class="timeline-grid">
 
-      navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href") === "#" + current) {
-          link.classList.add("active");
-        }
-      });
-    });
+<div class="timeline-card">
+<h3>Planning</h3>
+<p>Define system goals and architecture.</p>
+</div>
 
-    document.getElementById("topButton").addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
-  </script>
+<div class="timeline-card">
+<h3>Sensor Integration</h3>
+<p>Integrate mmWave radar and IR temperature sensor.</p>
+</div>
+
+<div class="timeline-card">
+<h3>Embedded Logic</h3>
+<p>Develop state machine and detection logic.</p>
+</div>
+
+<div class="timeline-card">
+<h3>Cloud Integration</h3>
+<p>Add AWS notifications and device shadow support.</p>
+</div>
+
+</div>
+</section>
+
+<section id="video" class="card">
+<h2>Project Video</h2>
+
+<div class="video-box">
+<div class="video-frame">
+<iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+</div>
+</div>
+
+</section>
+
+</div>
+
+<footer>
+<p>HADES Project | Human Alerting Device for Emergency Situations</p>
+</footer>
+
+<button id="topButton">↑</button>
+
+<script>
+
+window.addEventListener("scroll",function(){
+
+const scrollTop=window.scrollY;
+const pageHeight=document.body.scrollHeight-window.innerHeight;
+const scrollPercent=scrollTop/pageHeight;
+
+document.getElementById("progress-bar").style.width=(scrollPercent*100)+"%";
+
+const btn=document.getElementById("topButton");
+
+if(scrollTop>400){btn.classList.add("show");}
+else{btn.classList.remove("show");}
+
+});
+
+const cards=document.querySelectorAll(".card");
+
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+},{threshold:0.15});
+
+cards.forEach(card=>observer.observe(card));
+
+document.getElementById("topButton").addEventListener("click",()=>{
+window.scrollTo({top:0,behavior:"smooth"});
+});
+
+</script>
 
 </body>
 </html>
