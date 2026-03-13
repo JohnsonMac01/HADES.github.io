@@ -84,6 +84,7 @@ text-decoration:none;
 margin:0 14px;
 font-weight:600;
 display:inline-block;
+transition:color .2s ease;
 }
 
 nav a:hover{color:white;}
@@ -104,7 +105,7 @@ border-radius:18px;
 box-shadow:0 6px 20px rgba(0,0,0,0.3);
 opacity:0;
 transform:translateY(28px);
-transition:.4s ease;
+transition:transform .25s ease, box-shadow .25s ease, opacity .4s ease;
 scroll-margin-top:100px;
 }
 
@@ -147,6 +148,12 @@ background:linear-gradient(180deg,#381515,#2e1010);
 border-radius:16px;
 padding:20px;
 box-shadow:0 6px 18px rgba(0,0,0,0.2);
+transition:transform .25s ease, box-shadow .25s ease;
+}
+
+.mini-card:hover{
+transform:translateY(-4px);
+box-shadow:0 10px 24px rgba(0,0,0,0.28);
 }
 
 .pill{
@@ -174,6 +181,12 @@ background:linear-gradient(180deg,#381515,#2e1010);
 border-radius:16px;
 padding:22px;
 box-shadow:0 6px 18px rgba(0,0,0,0.2);
+transition:transform .25s ease, box-shadow .25s ease;
+}
+
+.sensor-card:hover{
+transform:translateY(-4px);
+box-shadow:0 10px 24px rgba(0,0,0,0.28);
 }
 
 /* BoM Table */
@@ -238,11 +251,102 @@ padding:20px;
 border-radius:16px;
 box-shadow:0 6px 18px rgba(0,0,0,0.2);
 border-top:4px solid #ff6b57;
+transition:transform .25s ease, box-shadow .25s ease;
+}
+
+.timeline-card:hover{
+transform:translateY(-4px);
+box-shadow:0 10px 24px rgba(0,0,0,0.28);
 }
 
 .timeline-card.current{
 border-top:4px solid #ffb347;
 box-shadow:0 0 0 1px rgba(255,179,71,0.25), 0 6px 18px rgba(0,0,0,0.25);
+}
+
+/* Simulator */
+
+.simulator-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:18px;
+margin-top:18px;
+}
+
+.control-group{
+margin-bottom:24px;
+}
+
+.control-group label{
+display:block;
+font-weight:600;
+color:#fff0f0;
+margin-bottom:8px;
+}
+
+.slider-value{
+color:#ffb4a2;
+font-weight:700;
+}
+
+input[type="range"]{
+-webkit-appearance:none;
+appearance:none;
+width:100%;
+height:8px;
+border-radius:999px;
+background:#4a1a1a;
+outline:none;
+}
+
+input[type="range"]::-webkit-slider-thumb{
+-webkit-appearance:none;
+appearance:none;
+width:20px;
+height:20px;
+border-radius:50%;
+background:#ff6b57;
+cursor:pointer;
+border:none;
+box-shadow:0 0 0 3px rgba(255,107,87,0.18);
+}
+
+input[type="range"]::-moz-range-thumb{
+width:20px;
+height:20px;
+border-radius:50%;
+background:#ff6b57;
+cursor:pointer;
+border:none;
+box-shadow:0 0 0 3px rgba(255,107,87,0.18);
+}
+
+.toggle-row{
+display:flex;
+align-items:center;
+gap:12px;
+font-weight:600;
+color:#fff0f0;
+}
+
+#simulator-output{
+border-left:4px solid #ff6b57;
+transition:border-color .25s ease, box-shadow .25s ease;
+}
+
+.sim-status{
+font-size:1.4rem;
+margin-bottom:8px;
+}
+
+.sim-readings{
+margin-top:16px;
+padding-top:14px;
+border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.sim-readings p{
+margin-bottom:8px;
 }
 
 /* Final Project Gallery */
@@ -422,7 +526,7 @@ to{opacity:1;}
 }
 
 @media(max-width:900px){
-.timeline-grid,.sensor-grid,.two-col{grid-template-columns:1fr;}
+.timeline-grid,.sensor-grid,.two-col,.simulator-grid{grid-template-columns:1fr;}
 }
 
 @media(max-width:768px){
@@ -462,6 +566,7 @@ font-size:1.2rem;
 <a href="#bom">BoM</a>
 <a href="#progress">Goals</a>
 <a href="#timeline">Timeline</a>
+<a href="#simulator">Simulator</a>
 <a href="#final-project">Final Project</a>
 <a href="#video">Video</a>
 </nav>
@@ -546,7 +651,7 @@ Detects whether a human is present in the kitchen while maintaining privacy.
 
 <tr>
 <td>
-<a href="https://www.amazon.com/EC-Buying-MLX90614ESF-DCI-Non-Contact-Temperature/dp/B0B63N57CS/ref=sr_1_10?crid=CVSAPHSFPTGP&dib=eyJ2IjoiMSJ9.b7KXZxZ136vz28ZpcHNbwNGjl9roBcHUp-Sklvpz3npeNCTVGOesqNEDXJekJMZdPl1N5dd7Da0Vi9uE5ML867HuWv4kuLwHsh7P0zp71np-UDUTv2UVtzVjXobnMtDZbq27IL4oELr5TdEAGATMcsKeOuShFh4My5GkKk5ZAxuB_YrXVQWwpA9WQozvnvA0p-_ND1YDOhVMsTlKSAm6VsB40akSw_fq-07A3_DME5E.FnX48lg5y0DXx2SispkiH6uxBvEsOUXPHrDl62fxtIQ&dib_tag=se&keywords=mlx90614&qid=1773371454&sprefix=mlx90614%2Caps%2C447&sr=8-10" target="_blank">
+<a href="https://www.amazon.com/EC-Buying-MLX90614ESF-DCI-Non-Contact-Temperature/dp/B0B63N57CS/ref=sr_1_10?crid=CVSAPHSFPTGP&dib=eyJ2IjoiMSJ9.b7KXZxZ136vz28ZpcHNbwNGjl9roBcHUp-Sklvpz3npeNCTVGOesqNEDXJekJMZdPl1N5dd7Da0Vi9uE5ML867HuWv4kuLwHsh7P0zp71np-UDUTv2UVtzVjXobnMtDZbq27IL4oELr5TdEAGATMcsKeOuShFh4My5GkKk5ZAxuB_YrXVQWwpA9WQozvnvA0p-_ND1YDOhVMsTlKSAm6VsB40akSw_fq-07A3_DME5E.FnX48lg5y0DXx2SispkiH6uxBvEsOUXPHrDl62fxtIQ&dib_tag=se&keywords=mlx90614&qid=1773371454&sprefix=mlx90614%2Caps%2C447&sr=8-10" target="_blank" rel="noopener noreferrer">
 MLX90614 Contactless IR
 </a>
 </td>
@@ -558,11 +663,11 @@ MLX90614 Contactless IR
 
 <tr>
 <td>
-<a href="https://www.amazon.com/Qoroos-LD2410C-HLK-LD2410-Presence-Millimeter/dp/B0F939YGLG/ref=sr_1_5?crid=2LYRYC5LM1YU9&dib=eyJ2IjoiMSJ9.u1lfQaOthr6DuWyKkaJNEju0jS6KdHm7IsYua-QwaB6JfkCKCjYwq0OMNtrpJM5BNO1q5iKAjd87c68BBi29dki3WVoteovCcs2nQH7MM-CgF6yEkMEfOra3VK0Iujo7PYCA5yeM7sEqrVhcLBvzkkPV3KbNJeXwefv0RSX9C2lK3s_seJB42pf_UBXzzUXHqWMbSFn-3YPajcbiq6wJjvG_wCtRVNXnUsLg1bFGVU4._D65a-2ovO056foX1Oqq4kV1yjPGwIbRaTlMdMU31vA&dib_tag=se&keywords=ld4210%2B24%2BGHZ&qid=1773372202&sprefix=ld4210%2B24%2Bghz%2Caps%2C143&sr=8-5&th=1" target="_blank">
-LD4210 24 GHz mmWave Radar
+<a href="https://www.amazon.com/Qoroos-LD2410C-HLK-LD2410-Presence-Millimeter/dp/B0F939YGLG/ref=sr_1_5?crid=2LYRYC5LM1YU9&dib=eyJ2IjoiMSJ9.u1lfQaOthr6DuWyKkaJNEju0jS6KdHm7IsYua-QwaB6JfkCKCjYwq0OMNtrpJM5BNO1q5iKAjd87c68BBi29dki3WVoteovCcs2nQH7MM-CgF6yEkMEfOra3VK0Iujo7PYCA5yeM7sEqrVhcLBvzkkPV3KbNJeXwefv0RSX9C2lK3s_seJB42pf_UBXzzUXHqWMbSFn-3YPajcbiq6wJjvG_wCtRVNXnUsLg1bFGVU4._D65a-2ovO056foX1Oqq4kV1yjPGwIbRaTlMdMU31vA&dib_tag=se&keywords=ld4210%2B24%2BGHZ&qid=1773372202&sprefix=ld4210%2B24%2Bghz%2Caps%2C143&sr=8-5&th=1" target="_blank" rel="noopener noreferrer">
+LD2410 24 GHz mmWave Radar
 </a>
 </td>
-<td><img class="bom-img" src="images/sensor1.png" alt="LD4210 mmWave radar"></td>
+<td><img class="bom-img" src="images/sensor1.png" alt="LD2410 mmWave radar"></td>
 <td>1</td>
 <td>$9.99</td>
 <td>Amazon</td>
@@ -570,7 +675,7 @@ LD4210 24 GHz mmWave Radar
 
 <tr>
 <td>
-<a href="https://www.amazon.com/Passive-Resistance-Electronic-Magnetic-Continuous/dp/B0F1KFHSNK/ref=sr_1_3?crid=3HXKBMJPWC8IL&dib=eyJ2IjoiMSJ9.jlO1tn4lnKFAEa9RWeJzUvXBChpxHkCHYF3qKcXExVQWA0ewotFmLeJ16FMvDTHXJIJTPgHfOab8tcX3KMYPIK56kF2ufA35TpLw2SGZTEhUMaZJ_e5ocVYkOtfbFN6bu02RqatkpqJDIL46koDmGd5xbWxwIzfi4ORs8ddAlB0rjPjOdK2HFY98wLroNKmus5-yJTlJrYyhs6fkU9t0OKIj8JR374W6h2fcY2N2pMU.kKUy-bw2vqQsA6_glDgBtknwCdhb1G4Sd8RRVeT_cjs&dib_tag=se&keywords=arduino%2Bbuzzer&qid=1773372312&sprefix=arduino%2Bbuzze%2Caps%2C190&sr=8-3&th=1" target="_blank">
+<a href="https://www.amazon.com/Passive-Resistance-Electronic-Magnetic-Continuous/dp/B0F1KFHSNK/ref=sr_1_3?crid=3HXKBMJPWC8IL&dib=eyJ2IjoiMSJ9.jlO1tn4lnKFAEa9RWeJzUvXBChpxHkCHYF3qKcXExVQWA0ewotFmLeJ16FMvDTHXJIJTPgHfOab8tcX3KMYPIK56kF2ufA35TpLw2SGZTEhUMaZJ_e5ocVYkOtfbFN6bu02RqatkpqJDIL46koDmGd5xbWxwIzfi4ORs8ddAlB0rjPjOdK2HFY98wLroNKmus5-yJTlJrYyhs6fkU9t0OKIj8JR374W6h2fcY2N2pMU.kKUy-bw2vqQsA6_glDgBtknwCdhb1G4Sd8RRVeT_cjs&dib_tag=se&keywords=arduino%2Bbuzzer&qid=1773372312&sprefix=arduino%2Bbuzze%2Caps%2C190&sr=8-3&th=1" target="_blank" rel="noopener noreferrer">
 Buzzer
 </a>
 </td>
@@ -582,7 +687,7 @@ Buzzer
 
 <tr>
 <td>
-<a href="https://www.dfrobot.com/product-488.html?srsltid=AfmBOorSmDzk28wH0Y6u8uAMa5fnIKwgb-C38UO8bH3H4yDV2Jo1W_cQ" target="_blank">
+<a href="https://www.dfrobot.com/product-488.html?srsltid=AfmBOorSmDzk28wH0Y6u8uAMa5fnIKwgb-C38UO8bH3H4yDV2Jo1W_cQ" target="_blank" rel="noopener noreferrer">
 Breadboard PSU
 </a>
 </td>
@@ -594,7 +699,7 @@ Breadboard PSU
 
 <tr>
 <td>
-<a href="https://www.amazon.com/WWZMDiB-SYB-170-Breadboard-Plates-Multicolored/dp/B09YXQJMTG/ref=sr_1_3?crid=FCR3OH1PELMC&dib=eyJ2IjoiMSJ9.dufGLUwPPHwtwQRK5n8GRb7Ag4BcHkQ90On7DZz2AAmpib-D1RagcYGoCt06ml8r1O6HyrwWl_OCJ2BxZJXTBUfMPlVTt1JOtPBBLB5gVhO6yLvn0mWTmcDvuy9KbNj1Rv6ZKutE_j88cBI3MeSwQIp8O5zTBRcWoHq5prSYGWpvkEpUsaD6twGlp0lLpI6NllpmN1pIZRL8W_XHg-y92aBLVHRj6f_yzk4iiwHjl-DQ.xc2I_1ZPiuJSZLCMMyHGDzBu2KhT2hakCD7h4EqCkbw&dib_tag=se&keywords=mini+breadboards&qid=1773372482&sprefix=mini+breadboard%2Caps%2C162&sr=8-3" target="_blank">
+<a href="https://www.amazon.com/WWZMDiB-SYB-170-Breadboard-Plates-Multicolored/dp/B09YXQJMTG/ref=sr_1_3?crid=FCR3OH1PELMC&dib=eyJ2IjoiMSJ9.dufGLUwPPHwtwQRK5n8GRb7Ag4BcHkQ90On7DZz2AAmpib-D1RagcYGoCt06ml8r1O6HyrwWl_OCJ2BxZJXTBUfMPlVTt1JOtPBBLB5gVhO6yLvn0mWTmcDvuy9KbNj1Rv6ZKutE_j88cBI3MeSwQIp8O5zTBRcWoHq5prSYGWpvkEpUsaD6twGlp0lLpI6NllpmN1pIZRL8W_XHg-y92aBLVHRj6f_yzk4iiwHjl-DQ.xc2I_1ZPiuJSZLCMMyHGDzBu2KhT2hakCD7h4EqCkbw&dib_tag=se&keywords=mini+breadboards&qid=1773372482&sprefix=mini+breadboard%2Caps%2C162&sr=8-3" target="_blank" rel="noopener noreferrer">
 Mini Breadboard 6 Pack
 </a>
 </td>
@@ -606,7 +711,7 @@ Mini Breadboard 6 Pack
 
 <tr>
 <td>
-<a href="https://www.ti.com/tool/CC3200-LAUNCHXL" target="_blank">
+<a href="https://www.ti.com/tool/CC3200-LAUNCHXL" target="_blank" rel="noopener noreferrer">
 CC3200 LaunchPad
 </a>
 </td>
@@ -618,14 +723,14 @@ CC3200 LaunchPad
 
 <tr>
 <td>
-<a href="https://www.digikey.com/en/products/detail/adafruit-industries-llc/4311/10313914?gclsrc=aw.ds&gad_source=1&gad_campaignid=20228387720&gbraid=0AAAAADrbLlh3a1fTc-Tlyggl74xvGViHt&gclid=CjwKCAjwyMnNBhBNEiwA-Kcgu1Bm1j4l0LoGrLALHx6qjC5qf5FmuD1ToMWCSr2FQkyrNhNAS4h62RoCD5gQAvD_BwE" target="_blank">
-AdaFruit OLED Display
+<a href="https://www.digikey.com/en/products/detail/adafruit-industries-llc/4311/10313914?gclsrc=aw.ds&gad_source=1&gad_campaignid=20228387720&gbraid=0AAAAADrbLlh3a1fTc-Tlyggl74xvGViHt&gclid=CjwKCAjwyMnNBhBNEiwA-Kcgu1Bm1j4l0LoGrLALHx6qjC5qf5FmuD1ToMWCSr2FQkyrNhNAS4h62RoCD5gQAvD_BwE" target="_blank" rel="noopener noreferrer">
+Adafruit OLED Display
 </a>
 </td>
 <td><img class="bom-img" src="images/oled.png" alt="Adafruit OLED Display"></td>
 <td>1</td>
 <td>Lab Material</td>
-<td>AdaFruit</td>
+<td>Adafruit</td>
 </tr>
 
 </tbody>
@@ -707,19 +812,68 @@ AdaFruit OLED Display
 <div class="timeline-card">
 <span class="pill">Phase 6</span>
 <h3>Alarm and Notification Behavior</h3>
-<p>Develop the response flow so the system can notify the user online or activate the onboard alarm when necessary.</p>
+<p>Developed the response flow so the system can notify the user online or activate the onboard alarm when necessary.</p>
 </div>
 
 <div class="timeline-card">
 <span class="pill">Phase 7</span>
 <h3>System Tuning and False Alarm Reduction</h3>
-<p>Improve reliability using threshold tuning, filtering, and sensor fusion to better distinguish normal use from hazardous use.</p>
+<p>Improved reliability using threshold tuning, filtering, and sensor fusion to better distinguish normal use from hazardous use.</p>
 </div>
 
 <div class="timeline-card current">
 <span class="pill">Phase 8</span>
 <h3>Final Integration and Testing</h3>
-<p>Complete full system testing, verify alarm response, confirm sensor performance, and prepare the final demonstration.</p>
+<p>Completed full system testing, verified alarm response, confirmed sensor performance, and prepared the final demonstration.</p>
+</div>
+
+</div>
+</section>
+
+<section id="simulator" class="card">
+<h2>Interactive Hazard Simulator</h2>
+
+<p class="lead">
+Adjust the temperature, presence state, and unattended time to see how HADES would respond in different cooking scenarios.
+</p>
+
+<div class="simulator-grid">
+
+<div class="mini-card">
+<span class="pill">Inputs</span>
+
+<div class="control-group">
+<label for="tempRange">Temperature: <span class="slider-value" id="tempValue">120</span> °F</label>
+<input type="range" id="tempRange" min="70" max="500" value="120">
+</div>
+
+<div class="control-group">
+<label for="timeRange">Time Unattended: <span class="slider-value" id="timeValue">0</span> min</label>
+<input type="range" id="timeRange" min="0" max="30" value="0">
+</div>
+
+<div class="control-group" style="margin-bottom:0;">
+<label>Presence Detection</label>
+<div class="toggle-row">
+<input type="checkbox" id="presenceToggle" checked>
+<span id="presenceText">Human Present</span>
+</div>
+</div>
+</div>
+
+<div class="mini-card" id="simulator-output">
+<span class="pill">System Output</span>
+<h3 class="sim-status" id="simStatus">Safe Condition</h3>
+<p id="simDescription">
+The current readings do not indicate an unattended cooking hazard.
+</p>
+
+<div class="sim-readings">
+<p><strong>Heat Level:</strong> <span id="heatState">Low</span></p>
+<p><strong>Presence State:</strong> <span id="presenceState">Detected</span></p>
+<p><strong>Alarm:</strong> <span id="alarmState">Off</span></p>
+<p><strong>Cloud Notification:</strong> <span id="cloudState">Not Sent</span></p>
+</div>
 </div>
 
 </div>
@@ -744,15 +898,15 @@ Below is a gallery of the HADES prototype showing different stages and views of 
 </div>
 
 <div class="gallery-slide">
-<img src="sensor3.jpg" alt="Temperature and Human sensor implementation for HADES">
+<img src="sensor3.jpg" alt="Temperature and human sensor implementation for HADES">
 </div>
 
 <div class="gallery-slide">
-<img src="Display.jpg" alt="OLED display and Buzzer used in HADES">
+<img src="Display.jpg" alt="OLED display and buzzer used in HADES">
 </div>
 
 <div class="gallery-slide">
-<img src="tessting.jpg" alt="Test Environment for Demo">
+<img src="tessting.jpg" alt="Test environment for demo">
 </div>
 
 </div>
@@ -886,11 +1040,82 @@ dots.forEach((dot,index)=>{
 dot.addEventListener("click",()=>showSlide(index));
 });
 
-/* Optional keyboard support */
 document.addEventListener("keydown",(e)=>{
 if(e.key==="ArrowLeft"){showSlide(currentSlide-1);}
 if(e.key==="ArrowRight"){showSlide(currentSlide+1);}
 });
+
+/* Simulator */
+
+const tempRange=document.getElementById("tempRange");
+const timeRange=document.getElementById("timeRange");
+const presenceToggle=document.getElementById("presenceToggle");
+
+const tempValue=document.getElementById("tempValue");
+const timeValue=document.getElementById("timeValue");
+const presenceText=document.getElementById("presenceText");
+
+const simStatus=document.getElementById("simStatus");
+const simDescription=document.getElementById("simDescription");
+const heatState=document.getElementById("heatState");
+const presenceState=document.getElementById("presenceState");
+const alarmState=document.getElementById("alarmState");
+const cloudState=document.getElementById("cloudState");
+const simulatorOutput=document.getElementById("simulator-output");
+
+function updateSimulator(){
+const temp=Number(tempRange.value);
+const time=Number(timeRange.value);
+const present=presenceToggle.checked;
+
+tempValue.textContent=temp;
+timeValue.textContent=time;
+presenceText.textContent=present ? "Human Present" : "No Human Present";
+presenceState.textContent=present ? "Detected" : "Not Detected";
+
+if(temp < 150){
+simStatus.textContent="Safe Condition";
+simDescription.textContent="The detected temperature is low, so the system does not consider this a hazardous cooking situation.";
+heatState.textContent="Low";
+alarmState.textContent="Off";
+cloudState.textContent="Not Sent";
+simulatorOutput.style.borderLeftColor="#ff6b57";
+simulatorOutput.style.boxShadow="0 6px 18px rgba(0,0,0,0.2)";
+}
+else if(present){
+simStatus.textContent="Heat Detected, User Present";
+simDescription.textContent="A heat source is active, but a person is still detected nearby, so HADES continues monitoring without triggering an alert.";
+heatState.textContent="Elevated";
+alarmState.textContent="Off";
+cloudState.textContent="Not Sent";
+simulatorOutput.style.borderLeftColor="#ffb347";
+simulatorOutput.style.boxShadow="0 0 0 1px rgba(255,179,71,0.2), 0 6px 18px rgba(0,0,0,0.2)";
+}
+else if(temp >= 150 && !present && time < 5){
+simStatus.textContent="Monitoring Condition";
+simDescription.textContent="Heat is active and no human is detected, but the unattended time is still below the alarm threshold. The system remains in a warning-monitoring state.";
+heatState.textContent="High";
+alarmState.textContent="Standby";
+cloudState.textContent="Pending";
+simulatorOutput.style.borderLeftColor="#f97316";
+simulatorOutput.style.boxShadow="0 0 0 1px rgba(249,115,22,0.2), 0 6px 18px rgba(0,0,0,0.2)";
+}
+else{
+simStatus.textContent="Hazard Detected - Alarm Triggered";
+simDescription.textContent="A heat source has remained active without human presence for too long. HADES would activate the buzzer and send a remote notification to the user.";
+heatState.textContent="High";
+alarmState.textContent="On";
+cloudState.textContent="Sent";
+simulatorOutput.style.borderLeftColor="#ef4444";
+simulatorOutput.style.boxShadow="0 0 0 1px rgba(239,68,68,0.24), 0 6px 18px rgba(0,0,0,0.24)";
+}
+}
+
+tempRange.addEventListener("input",updateSimulator);
+timeRange.addEventListener("input",updateSimulator);
+presenceToggle.addEventListener("change",updateSimulator);
+
+updateSimulator();
 </script>
 
 </body>
