@@ -744,15 +744,15 @@ Below is a gallery of the HADES prototype showing different stages and views of 
 </div>
 
 <div class="gallery-slide">
-<img src="images/sensor1.png" alt="mmWave radar used in HADES">
+<img src="sensor3.jpg" alt="Temperature and Human sensor implementation for HADES">
 </div>
 
 <div class="gallery-slide">
-<img src="images/sensor2.png" alt="IR temperature sensor used in HADES">
+<img src="Display" alt="OLED display and Buzzer used in HADES">
 </div>
 
 <div class="gallery-slide">
-<img src="images/oled.png" alt="OLED display used in HADES">
+<img src="images/oled.png" alt="Test Environment for Demo">
 </div>
 
 </div>
@@ -843,19 +843,19 @@ const galleryCaption=document.getElementById("gallery-caption");
 const galleryData=[
 {
 title:"Final Integrated System",
-description:"This view shows the overall HADES prototype with the integrated sensing, processing, and alerting hardware connected together as a complete system."
+description:"This image shows the complete HADES prototype assembled on the development platform. The CC3200 LaunchPad acts as the central controller, collecting data from the sensors, processing the hazard detection logic, and triggering alerts when necessary. All sensing, processing, and output components are integrated together to demonstrate the full end-to-end functionality of the system."
 },
 {
-title:"Human Presence Detection Sensor",
-description:"This slide highlights the mmWave radar module used to detect whether a person is actively present near the monitored cooking area."
+title:"Sensor Communication and Data Acquisition",
+description:"This slide shows the MLX90614 infrared temperature sensor and the LD2410 mmWave human presence radar positioned side by side. The MLX90614 communicates with the CC3200 using the I²C protocol, allowing the microcontroller to periodically read temperature data from the sensor registers over the shared SDA and SCL lines. The LD2410 radar module communicates through a UART interface, continuously transmitting presence and motion information to the microcontroller. By combining temperature measurements with human presence detection, the system can determine when a heat source remains active without a nearby person."
 },
 {
-title:"Temperature Sensing Module",
-description:"This image shows the MLX90614 contactless IR temperature sensor used to monitor heat sources without requiring direct contact."
+title:"User Feedback and Alerting Interface",
+description:"This image highlights the OLED display and buzzer used to provide feedback to the user. The OLED display communicates with the microcontroller over the SPI interface, allowing real-time status updates such as system connectivity, temperature readings, and presence detection indicators. The buzzer acts as the local audible alert mechanism and is triggered by a GPIO output from the CC3200 when the system detects a potentially hazardous unattended heat source. Together, these components ensure both visual and audible notifications are provided to the user."
 },
 {
-title:"Display and User Feedback",
-description:"This slide shows the OLED display component that can present system status, sensor information, and alert feedback to the user."
+title:"Demonstration Environment",
+description:"This slide shows the environment where the final demonstration of the HADES system was recorded. The setup simulates a kitchen-like environment where a heat source can be monitored while human presence is detected or absent. This environment allowed the team to demonstrate how the system responds to unattended heat scenarios and validates the overall functionality of the prototype during the final project presentation."
 }
 ];
 
